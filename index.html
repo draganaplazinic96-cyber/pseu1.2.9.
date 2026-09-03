@@ -252,10 +252,10 @@
 <body>
 
 <div class="masthead">POLITIČKI SISTEM EVROPSKE UNIJE</div>
-<div class="masthead-sub">PSEU · Finalni plan učenja · 3–5. septembar</div>
+<div class="masthead-sub">PSEU · FINALNI plan učenja — 2 sna, 2 ponavljanja · 3–5. septembar</div>
 <div class="masthead-rule"></div>
 
-<h1>PSEU — finalni plan učenja · 3–5. septembar (ispit 5.9. u 9:00)</h1>
+<h1>PSEU — FINALNI plan učenja · 3–5. septembar (ispit 5.9. u 9:00)</h1>
 
 <div class="countdown">
   <div class="star-ring">
@@ -293,9 +293,9 @@
 
 <script>
 const PHASE_ENDS = {
-  faza1: new Date(2026, 8, 4, 3, 0, 0),   // 4.9.2026 03:00
-  faza2: new Date(2026, 8, 4, 22, 0, 0),  // 4.9.2026 22:00
-  faza3: new Date(2026, 8, 5, 7, 45, 0)   // 5.9.2026 07:45
+  faza1: new Date(2026, 8, 4, 7, 0, 0),    // Petak 4.9.2026 07:00 - kraj sna 1
+  faza2: new Date(2026, 8, 5, 1, 30, 0),   // Subota 5.9.2026 01:30 - kraj sna 2
+  faza3: new Date(2026, 8, 5, 9, 0, 0)     // Subota 5.9.2026 09:00 - ispit
 };
 const QUESTION_AREA = { 1:1, 2:1, 3:2, 4:2, 5:2, 6:3, 7:3, 8:4, 9:4, 10:4, 11:5, 12:5, 13:5, 14:5, 15:6, 16:6, 17:6, 18:6, 19:7, 20:7, 21:7, 22:8, 23:8, 24:8, 25:8, 26:9, 27:9, 28:10, 29:10, 30:10, 31:11, 32:11, 33:11, 34:11, 35:11, 36:11, 37:12, 38:12, 39:12, 40:12, 41:13, 42:13, 43:13, 44:13, 45:14, 46:14, 47:14, 48:14, 49:15, 50:15, 51:15, 52:16, 53:17, 54:17, 55:17, 56:17, 57:17, 58:17, 59:17, 60:17, 61:17, 62:17, 63:17, 64:17, 65:17, 66:17, 67:17, 68:17, 69:18, 70:18, 71:18, 72:18, 73:18, 74:18, 75:18, 76:18, 77:19, 78:19, 79:20, 80:20, 81:20, 82:20, 83:20, 84:20, 85:20, 86:21, 87:21, 88:21, 89:21, 90:21, 91:21, 92:21, 93:21, 94:22, 95:22, 96:22, 97:22, 98:22, 99:23, 100:23, 101:23, 102:24, 103:24, 104:24, 105:24 };
 const AREA_FINAL_MIN = { 1:7, 2:7, 3:6, 4:9, 5:9, 6:9, 7:6, 8:7, 9:7, 10:13, 11:17, 12:11, 13:8, 14:10, 15:4, 16:5, 17:38, 18:18, 19:4, 20:25, 21:18, 22:11, 23:8, 24:13 };
@@ -410,7 +410,7 @@ const QUESTION_TEXT = {
 
 
 const DAYS = [
-  { key: 'faza1', label: 'PRVA FAZA · 3.9. 17:00 → 4.9. 03:00 — prvo učenje pitanja 1–68', phaseEnd: PHASE_ENDS.faza1, seq: [
+  { key: 'faza1', label: 'DAN 1 · Četvrtak 3.9. 17:00 → Petak 4.9. 07:00 — prvo čitanje deo 1 (pitanja 1–52) + SAN 1 (6h)', phaseEnd: PHASE_ENDS.faza1, seq: [
     {"type": "phase", "label": "17:00–18:15 · Oblasti 1–4"},
     {"type": "item", "label": "1. Koncept političkog sistema i njegova primena na EU — 1. Klasična teorija političkog sistema|||2. Primena koncepta političkog sistema na Evropsku zajednicu/uniju", "min": 20},
     {"type": "item", "label": "2. Evolucija od međunarodne organizacije ka političkom sistemu — 3. Evolucija Evropskih zajednica – od osnivanja do krize „prazne stolice“|||4. Stabilizovanje poretka evropske integracije – od sredine šezdesetih do Ugovora iz Mastrihta (1993)|||5. Stabilizovanje poretka evropske integracije – Ugovori o Evropskoj uniji (od 1993. do 2009)", "min": 20},
@@ -425,110 +425,112 @@ const DAYS = [
     {"type": "phase", "label": "19:45–20:25 · Oblasti 8–9"},
     {"type": "item", "label": "8. Podela vlasti i institucionalni balans — 22. Podela vlasti i institucionalni balans|||23. Klasični koncept granske podele vlasti|||24. Podela vlasti u institucionalnom sistemu EZ/EU|||25. Institucije EU – opšti pristup", "min": 25},
     {"type": "item", "label": "9. Evropski savet — 26. Evropski savet – nastanak i sastav|||27. Evropski savet – zadaci, način rada i odlučivanja", "min": 15},
-    {"type": "break", "min": 15, "label": "20:25–20:40 · PAUZA / HRANA"},
+    {"type": "break", "min": 20, "label": "20:25–20:45 · PAUZA / VEČERA"},
     {"type": "phase", "label": "20:40–21:25 · Savet ministara"},
     {"type": "item", "label": "10. Savet ministara — 28. Savet ministara – opšte karakteristike i nadležnosti|||29. Struktura Saveta ministara|||30. Način rada i odlučivanja Saveta ministara", "min": 45},
-    {"type": "break", "min": 10, "label": "21:25–21:35 · PAUZA"},
+    {"type": "break", "min": 10, "label": "21:30–21:40 · PAUZA"},
     {"type": "phase", "label": "21:35–22:35 · Komisija"},
     {"type": "item", "label": "11. Komisija — 31. Komisija – položaj i uloga u sistemu odlučivanja|||32. Nadležnosti Komisije|||33. Kolegijum i predsednik Komisije|||34. Kabineti predsednika i komesara i službenički sastav Komisije|||35. Izbori/imenovanje članova Komisije|||36. Način rada i odlučivanja Komisije", "min": 60},
-    {"type": "break", "min": 10, "label": "22:35–22:45 · PAUZA"},
+    {"type": "break", "min": 10, "label": "22:40–22:50 · PAUZA"},
     {"type": "phase", "label": "22:45–23:45 · Evropski parlament + Sud pravde"},
     {"type": "item", "label": "12. Evropski parlament — 37. Evolucija Evropskog parlamenta|||38. Struktura i način delovanja Evropskog parlamenta|||39. Nadležnosti Evropskog parlamenta|||40. Izbori za Evropski parlament", "min": 35},
     {"type": "item", "label": "13. Sud pravde Evropske unije — 41. Sud pravde EU – značaj i položaj|||42. Struktura Suda pravde EU i način rada|||43. Nadležnosti Suda pravde EU|||44. Aktivistička uloga Suda pravde EU", "min": 25},
-    {"type": "phase", "label": "23:45–00:20 · Evropska centralna banka"},
+    {"type": "break", "min": 10, "label": "23:50–00:00 · PAUZA"},
+    {"type": "phase", "label": "23:55–00:45 · ECB + nepolitičke institucije + modeli upravljanja"},
     {"type": "item", "label": "14. Monetarna unija / Evropska centralna banka — 45. Monetarna unija i Evropska centralna banka|||46. Struktura Evropske centralne banke i način odlučivanja|||47. Nadležnosti i prošireni zadaci Evropske centralne banke|||48. Autonomija i odgovornost Evropske centralne banke", "min": 35},
-    {"type": "phase", "label": "00:20–00:35 · Nepolitičke institucije"},
     {"type": "item", "label": "15. Nepolitičke institucije — 49. Ekonomski i socijalni komitet|||50. Komitet regiona|||51. Revizorski sud i regulatorna tela", "min": 15},
-    {"type": "phase", "label": "00:35–00:45 · Različitost modela upravljanja"},
     {"type": "item", "label": "16. Različitost modela upravljanja u EU — 52. Modeli upravljanja u EU", "min": 10},
-    {"type": "break", "min": 20, "label": "00:45–01:05 · VELIKA PAUZA"},
-    {"type": "phase", "label": "01:05–02:45 · Komunitarni metod"},
-    {"type": "item", "label": "17. Politički proces u okviru komunitarnog metoda — 53. Poreklo i početak komunitarnog modela|||54. Evolucija zakonodavne politike|||55. Od saodlučivanja do redovnog zakonskog postupka; pitanje efikasnosti|||56. Vrste pravnih propisa u EZ/EU|||57. Zakonska inicijativa|||58. Priroda izvršne vlasti; Moneov metod izvršne vlasti u EZ/EU|||59. Komisija: kontrola sprovođenja zakona u državama članicama|||60. Komisija: donošenje izvršnih akata i postupak „komitologije“|||61. Pravosudna politika EU|||62. Sud pravde kao politički akter|||63. Načela komunitarnog prava (prava EU) proizašla iz prakse Suda pravde|||64. Fenomen konstitucionalizacije|||65. Tri osnovna mehanizma konstitucionalizacije|||66. Načelo nadređenosti/prvenstva prava EU u političkom procesu integracije|||67. Alternativna sudska praksa nacionalnih sudova|||68. Dinamički karakter pitanja o nadređenosti/prvenstvu prava EU", "min": 100},
-    {"type": "break", "min": 15, "label": "02:45–03:00 · BUFFER PRVE FAZE — koristi samo ako neki blok kasni"}
+    {"type": "break", "min": 360, "label": "01:00–07:00 · 😴 SPAVANJE 1 — 6h, ne skraćuj"},
   ]},
-  { key: 'faza2', label: 'DRUGA FAZA · 4.9. 11:00 → 22:00 — završetak prvog učenja (69–105) + aktivno ponavljanje', phaseEnd: PHASE_ENDS.faza2, seq: [
-    {"type": "phase", "label": "11:00–12:05 · Međuvladin model"},
-    {"type": "item", "label": "18. Politički proces u okviru međuvladinog metoda — 69. Opšte karakteristike međuvladinog modela upravljanja|||70. Međuvladine konferencije|||71. Policijska i pravosudna saradnja; prostor slobode, bezbednosti i pravde|||72. Instrumenti delovanja u policijskoj i pravosudnoj saradnji|||73. Saradnja država članica u spoljnoj politici kao preteča zajedničke spoljne i bezbednosne politike|||74. Prva faza spoljne i bezbednosne politike – ciljevi i sredstva|||75. Druga faza spoljne i bezbednosne politike – reformska nastojanja|||76. Fuzija spoljne, bezbednosne i odbrambene politike EU", "min": 65},
-    {"type": "break", "min": 10, "label": "12:05–12:15 · PAUZA"},
-    {"type": "phase", "label": "12:15–12:25 · Otvoreni metod koordinacije"},
-    {"type": "item", "label": "19. Otvoreni metod koordinacije — 77. Otvoreni metod koordinacije; „meko pravo“ EU|||78. Osmišljavanje otvorenog metoda koordinacije i njegov domašaj", "min": 10},
-    {"type": "phase", "label": "12:25–13:50 · Model upravljanja krizom"},
-    {"type": "item", "label": "20. Model upravljanja krizom — 79. Model upravljanja krizom; uzroci i tokovi kriza|||80. Antikrizne intervencije u oblasti ekonomske politike|||81. Antikrizne intervencije u oblasti monetarne politike|||82. Politički proces u okruženju antikriznih upravljačkih mehanizama|||83. Kriza u medijumu prava|||84. Institucionalne posledice kriznog upravljanja: Evropski savet, Evrogrupa, Savet ministara|||85. Institucionalne posledice kriznog upravljanja: Komisija, Evropska centralna banka, Evropski parlament, Sud pravde EU", "min": 85},
-    {"type": "break", "min": 30, "label": "13:50–14:20 · PAUZA / HRANA"},
-    {"type": "phase", "label": "14:20–15:15 · Evropska javnost"},
-    {"type": "item", "label": "21. Pitanje o evropskoj javnosti — 86. Politički život u EU; opšti pristup|||87. Javnost kao kategorija političkog društva|||88. Javno mnjenje u EU i njegovo praćenje|||89. Evropeizacija nacionalnih javnosti|||90. Građanstvo Evropske unije|||91. Pitanje o evropskom identitetu|||92. Ustavni patriotizam i hrišćanski identitet Evrope kao antipodi|||93. Evroskepticizam", "min": 55},
-    {"type": "phase", "label": "15:15–15:50 · Političke stranke"},
-    {"type": "item", "label": "22. Političke stranke u EU — 94. Dilema predstavničke demokratije u EU i mesto političkih stranaka|||95. Stranke u EU – nacionalne i evropske|||96. Stranačka regulativa na nivou EU|||97. Specifičnost izbora za Evropski parlament i uloga stranaka|||98. Izbori 2019. godine i mogući pravci reformi", "min": 35},
-    {"type": "break", "min": 10, "label": "15:50–16:00 · PAUZA"},
-    {"type": "phase", "label": "16:00–16:25 · Interesna i korporativna strana"},
-    {"type": "item", "label": "23. Interesne grupe u EU — 99. Pluralistički pogled na demokratiju|||100. Interesne grupe u EU|||101. Zastupanje i lobiranje u EU", "min": 25},
-    {"type": "phase", "label": "16:25–17:10 · Demokratija u EU"},
-    {"type": "item", "label": "24. Demokratija u EU / demokratski deficit — 102. Načela moderne demokratije i pitanje demokratije u EU|||103. Strukturni manjak demokratije|||104. Da li EU pretpostavlja novi tip demokratije?|||105. Krizni ishod legitimnosti i demokratije", "min": 45},
-    {"type": "break", "min": 30, "label": "17:10–17:40 · VELIKI ODMOR — ✅ PRVO UČENJE 1–105 ZAVRŠENO"},
-    {"type": "phase", "label": "17:40–19:10 · Aktivno ponavljanje pitanja 1–30"},
+  { key: 'faza2', label: 'DAN 2 · Petak 4.9. 07:00 → 01:30 — prvo čitanje deo 2 (53–105, SVIH 105 gotovo u 15:00) + Ponavljanje 1 + SAN 2 (4h)', phaseEnd: PHASE_ENDS.faza2, seq: [
+    {"type": "break", "min": 30, "label": "07:00–07:30 · Buđenje, doručak, priprema"},
+    {"type": "phase", "label": "07:30–08:50 · Komunitarni metod"},
+    {"type": "item", "label": "17. Politički proces u okviru komunitarnog metoda — 53. Poreklo i početak komunitarnog modela|||54. Evolucija zakonodavne politike|||55. Od saodlučivanja do redovnog zakonskog postupka; pitanje efikasnosti|||56. Vrste pravnih propisa u EZ/EU|||57. Zakonska inicijativa|||58. Priroda izvršne vlasti; Moneov metod izvršne vlasti u EZ/EU|||59. Komisija: kontrola sprovođenja zakona u državama članicama|||60. Komisija: donošenje izvršnih akata i postupak „komitologije“|||61. Pravosudna politika EU|||62. Sud pravde kao politički akter|||63. Načela komunitarnog prava (prava EU) proizašla iz prakse Suda pravde|||64. Fenomen konstitucionalizacije|||65. Tri osnovna mehanizma konstitucionalizacije|||66. Načelo nadređenosti/prvenstva prava EU u političkom procesu integracije|||67. Alternativna sudska praksa nacionalnih sudova|||68. Dinamički karakter pitanja o nadređenosti/prvenstvu prava EU", "min": 80},
+    {"type": "break", "min": 10, "label": "08:50–09:00 · PAUZA"},
+    {"type": "phase", "label": "09:00–10:06 · Međuvladin metod + otvoreni metod koordinacije"},
+    {"type": "item", "label": "18. Politički proces u okviru međuvladinog metoda — 69. Opšte karakteristike međuvladinog modela upravljanja|||70. Međuvladine konferencije|||71. Policijska i pravosudna saradnja; prostor slobode, bezbednosti i pravde|||72. Instrumenti delovanja u policijskoj i pravosudnoj saradnji|||73. Saradnja država članica u spoljnoj politici kao preteča zajedničke spoljne i bezbednosne politike|||74. Prva faza spoljne i bezbednosne politike – ciljevi i sredstva|||75. Druga faza spoljne i bezbednosne politike – reformska nastojanja|||76. Fuzija spoljne, bezbednosne i odbrambene politike EU", "min": 58},
+    {"type": "item", "label": "19. Otvoreni metod koordinacije — 77. Otvoreni metod koordinacije; „meko pravo“ EU|||78. Osmišljavanje otvorenog metoda koordinacije i njegov domašaj", "min": 8},
+    {"type": "break", "min": 10, "label": "10:06–10:16 · PAUZA"},
+    {"type": "phase", "label": "10:16–11:32 · Model upravljanja krizom"},
+    {"type": "item", "label": "20. Model upravljanja krizom — 79. Model upravljanja krizom; uzroci i tokovi kriza|||80. Antikrizne intervencije u oblasti ekonomske politike|||81. Antikrizne intervencije u oblasti monetarne politike|||82. Politički proces u okruženju antikriznih upravljačkih mehanizama|||83. Kriza u medijumu prava|||84. Institucionalne posledice kriznog upravljanja: Evropski savet, Evrogrupa, Savet ministara|||85. Institucionalne posledice kriznog upravljanja: Komisija, Evropska centralna banka, Evropski parlament, Sud pravde EU", "min": 76},
+    {"type": "break", "min": 25, "label": "11:32–11:57 · PAUZA / RUČAK"},
+    {"type": "phase", "label": "11:57–13:17 · Evropska javnost, identitet, evroskepticizam"},
+    {"type": "item", "label": "21. Pitanje o evropskoj javnosti — 86. Politički život u EU; opšti pristup|||87. Javnost kao kategorija političkog društva|||88. Javno mnjenje u EU i njegovo praćenje|||89. Evropeizacija nacionalnih javnosti|||90. Građanstvo Evropske unije|||91. Pitanje o evropskom identitetu|||92. Ustavni patriotizam i hrišćanski identitet Evrope kao antipodi|||93. Evroskepticizam", "min": 80},
+    {"type": "break", "min": 10, "label": "13:17–13:27 · PAUZA"},
+    {"type": "phase", "label": "13:27–15:00 · Stranke + interesne grupe + demokratija"},
+    {"type": "item", "label": "22. Političke stranke u EU — 94. Dilema predstavničke demokratije u EU i mesto političkih stranaka|||95. Stranke u EU – nacionalne i evropske|||96. Stranačka regulativa na nivou EU|||97. Specifičnost izbora za Evropski parlament i uloga stranaka|||98. Izbori 2019. godine i mogući pravci reformi", "min": 31},
+    {"type": "item", "label": "23. Interesne grupe u EU — 99. Pluralistički pogled na demokratiju|||100. Interesne grupe u EU|||101. Zastupanje i lobiranje u EU", "min": 22},
+    {"type": "item", "label": "24. Demokratija u EU / demokratski deficit — 102. Načela moderne demokratije i pitanje demokratije u EU|||103. Strukturni manjak demokratije|||104. Da li EU pretpostavlja novi tip demokratije?|||105. Krizni ishod legitimnosti i demokratije", "min": 40},
+    {"type": "break", "min": 30, "label": "15:00–15:30 · PAUZA / VELIKI ODMOR — ✅ PRVO ČITANJE 1–105 ZAVRŠENO"},
+    {"type": "phase", "label": "15:30–16:14 · Ponavljanje 1: pitanja 1–21"},
     {"type": "item", "label": "1. Koncept političkog sistema i njegova primena na EU — 1. Klasična teorija političkog sistema|||2. Primena koncepta političkog sistema na Evropsku zajednicu/uniju", "min": 8},
     {"type": "item", "label": "2. Evolucija od međunarodne organizacije ka političkom sistemu — 3. Evolucija Evropskih zajednica – od osnivanja do krize „prazne stolice“|||4. Stabilizovanje poretka evropske integracije – od sredine šezdesetih do Ugovora iz Mastrihta (1993)|||5. Stabilizovanje poretka evropske integracije – Ugovori o Evropskoj uniji (od 1993. do 2009)", "min": 8},
-    {"type": "item", "label": "3. Politički sistem i država – na primeru EU — 6. Nedržavni tip političkog sistema|||7. Postdržavni tip političkog sistema", "min": 7},
-    {"type": "item", "label": "4. Ugovorna i ustavna strana političkog sistema EU — 8. Ugovorna strana političkog sistema EU|||9. Ustavna strana političkog sistema EU|||10. Ko je gospodar osnivačkih ugovora?", "min": 9},
-    {"type": "item", "label": "5. Kvazifederalna raspodela materijalnih nadležnosti — 11. Federalno iskustvo u vertikalnoj podeli nadležnosti – američki uzor|||12. Evolucija podele nadležnosti|||13. Današnje stanje nadležnosti EU – opšta pitanja|||14. Ugovorna sistematizacija nadležnosti EU", "min": 10},
-    {"type": "item", "label": "6. Teorije o evropskim integracijama — 15. Teorije o evropskim integracijama; rano shvatanje „evropskog federalizma“|||16. Neofunkcionalistički pristup evropskim integracijama|||17. Teorija o međuvladinim odnosima na primeru evropske integracije|||18. Teorije o upravljanju na više nivoa i novi institucionalizam", "min": 10},
-    {"type": "item", "label": "7. Politički sistem EU u vremenu krize — 19. Kriza integracionog procesa|||20. Strukturni problem ekonomske i monetarne unije|||21. Antikrizna prekompozicija političkog sistema EU", "min": 7},
-    {"type": "item", "label": "8. Podela vlasti i institucionalni balans — 22. Podela vlasti i institucionalni balans|||23. Klasični koncept granske podele vlasti|||24. Podela vlasti u institucionalnom sistemu EZ/EU|||25. Institucije EU – opšti pristup", "min": 10},
-    {"type": "item", "label": "9. Evropski savet — 26. Evropski savet – nastanak i sastav|||27. Evropski savet – zadaci, način rada i odlučivanja", "min": 7},
-    {"type": "item", "label": "10. Savet ministara — 28. Savet ministara – opšte karakteristike i nadležnosti|||29. Struktura Saveta ministara|||30. Način rada i odlučivanja Saveta ministara", "min": 14},
-    {"type": "break", "min": 10, "label": "19:10–19:20 · PAUZA"},
-    {"type": "phase", "label": "19:20–20:35 · Aktivno ponavljanje pitanja 31–52"},
-    {"type": "item", "label": "11. Komisija — 31. Komisija – položaj i uloga u sistemu odlučivanja|||32. Nadležnosti Komisije|||33. Kolegijum i predsednik Komisije|||34. Kabineti predsednika i komesara i službenički sastav Komisije|||35. Izbori/imenovanje članova Komisije|||36. Način rada i odlučivanja Komisije", "min": 20},
-    {"type": "item", "label": "12. Evropski parlament — 37. Evolucija Evropskog parlamenta|||38. Struktura i način delovanja Evropskog parlamenta|||39. Nadležnosti Evropskog parlamenta|||40. Izbori za Evropski parlament", "min": 15},
-    {"type": "item", "label": "13. Sud pravde Evropske unije — 41. Sud pravde EU – značaj i položaj|||42. Struktura Suda pravde EU i način rada|||43. Nadležnosti Suda pravde EU|||44. Aktivistička uloga Suda pravde EU", "min": 10},
-    {"type": "item", "label": "14. Monetarna unija / Evropska centralna banka — 45. Monetarna unija i Evropska centralna banka|||46. Struktura Evropske centralne banke i način odlučivanja|||47. Nadležnosti i prošireni zadaci Evropske centralne banke|||48. Autonomija i odgovornost Evropske centralne banke", "min": 15},
+    {"type": "item", "label": "3. Politički sistem i država – na primeru EU — 6. Nedržavni tip političkog sistema|||7. Postdržavni tip političkog sistema", "min": 8},
+    {"type": "item", "label": "4. Ugovorna i ustavna strana političkog sistema EU — 8. Ugovorna strana političkog sistema EU|||9. Ustavna strana političkog sistema EU|||10. Ko je gospodar osnivačkih ugovora?", "min": 13},
+    {"type": "item", "label": "5. Kvazifederalna raspodela materijalnih nadležnosti — 11. Federalno iskustvo u vertikalnoj podeli nadležnosti – američki uzor|||12. Evolucija podele nadležnosti|||13. Današnje stanje nadležnosti EU – opšta pitanja|||14. Ugovorna sistematizacija nadležnosti EU", "min": 13},
+    {"type": "item", "label": "6. Teorije o evropskim integracijama — 15. Teorije o evropskim integracijama; rano shvatanje „evropskog federalizma“|||16. Neofunkcionalistički pristup evropskim integracijama|||17. Teorija o međuvladinim odnosima na primeru evropske integracije|||18. Teorije o upravljanju na više nivoa i novi institucionalizam", "min": 13},
+    {"type": "item", "label": "7. Politički sistem EU u vremenu krize — 19. Kriza integracionog procesa|||20. Strukturni problem ekonomske i monetarne unije|||21. Antikrizna prekompozicija političkog sistema EU", "min": 8},
+    {"type": "break", "min": 10, "label": "16:41–16:51 · PAUZA"},
+    {"type": "phase", "label": "16:24–18:10 · Ponavljanje 1: pitanja 22–52 (institucije)"},
+    {"type": "item", "label": "8. Podela vlasti i institucionalni balans — 22. Podela vlasti i institucionalni balans|||23. Klasični koncept granske podele vlasti|||24. Podela vlasti u institucionalnom sistemu EZ/EU|||25. Institucije EU – opšti pristup", "min": 13},
+    {"type": "item", "label": "9. Evropski savet — 26. Evropski savet – nastanak i sastav|||27. Evropski savet – zadaci, način rada i odlučivanja", "min": 8},
+    {"type": "item", "label": "10. Savet ministara — 28. Savet ministara – opšte karakteristike i nadležnosti|||29. Struktura Saveta ministara|||30. Način rada i odlučivanja Saveta ministara", "min": 17},
+    {"type": "item", "label": "11. Komisija — 31. Komisija – položaj i uloga u sistemu odlučivanja|||32. Nadležnosti Komisije|||33. Kolegijum i predsednik Komisije|||34. Kabineti predsednika i komesara i službenički sastav Komisije|||35. Izbori/imenovanje članova Komisije|||36. Način rada i odlučivanja Komisije", "min": 25},
+    {"type": "item", "label": "12. Evropski parlament — 37. Evolucija Evropskog parlamenta|||38. Struktura i način delovanja Evropskog parlamenta|||39. Nadležnosti Evropskog parlamenta|||40. Izbori za Evropski parlament", "min": 21},
+    {"type": "item", "label": "13. Sud pravde Evropske unije — 41. Sud pravde EU – značaj i položaj|||42. Struktura Suda pravde EU i način rada|||43. Nadležnosti Suda pravde EU|||44. Aktivistička uloga Suda pravde EU", "min": 13},
+    {"type": "item", "label": "14. Monetarna unija / Evropska centralna banka — 45. Monetarna unija i Evropska centralna banka|||46. Struktura Evropske centralne banke i način odlučivanja|||47. Nadležnosti i prošireni zadaci Evropske centralne banke|||48. Autonomija i odgovornost Evropske centralne banke", "min": 21},
     {"type": "item", "label": "15. Nepolitičke institucije — 49. Ekonomski i socijalni komitet|||50. Komitet regiona|||51. Revizorski sud i regulatorna tela", "min": 8},
-    {"type": "item", "label": "16. Različitost modela upravljanja u EU — 52. Modeli upravljanja u EU", "min": 7},
-    {"type": "break", "min": 10, "label": "20:35–20:45 · PAUZA"},
-    {"type": "phase", "label": "20:45–21:20 · Aktivno ponavljanje komunitarnog metoda"},
-    {"type": "item", "label": "17. Politički proces u okviru komunitarnog metoda — 53. Poreklo i početak komunitarnog modela|||54. Evolucija zakonodavne politike|||55. Od saodlučivanja do redovnog zakonskog postupka; pitanje efikasnosti|||56. Vrste pravnih propisa u EZ/EU|||57. Zakonska inicijativa|||58. Priroda izvršne vlasti; Moneov metod izvršne vlasti u EZ/EU|||59. Komisija: kontrola sprovođenja zakona u državama članicama|||60. Komisija: donošenje izvršnih akata i postupak „komitologije“|||61. Pravosudna politika EU|||62. Sud pravde kao politički akter|||63. Načela komunitarnog prava (prava EU) proizašla iz prakse Suda pravde|||64. Fenomen konstitucionalizacije|||65. Tri osnovna mehanizma konstitucionalizacije|||66. Načelo nadređenosti/prvenstva prava EU u političkom procesu integracije|||67. Alternativna sudska praksa nacionalnih sudova|||68. Dinamički karakter pitanja o nadređenosti/prvenstvu prava EU", "min": 35},
-    {"type": "phase", "label": "21:20–22:00 · Brzi retrieval pitanja 69–105 (Znam → dalje · Klimavo → crvena zona · Ne znam → crvena zona)"},
-    {"type": "item", "label": "18. Politički proces u okviru međuvladinog metoda — 69. Opšte karakteristike međuvladinog modela upravljanja|||70. Međuvladine konferencije|||71. Policijska i pravosudna saradnja; prostor slobode, bezbednosti i pravde|||72. Instrumenti delovanja u policijskoj i pravosudnoj saradnji|||73. Saradnja država članica u spoljnoj politici kao preteča zajedničke spoljne i bezbednosne politike|||74. Prva faza spoljne i bezbednosne politike – ciljevi i sredstva|||75. Druga faza spoljne i bezbednosne politike – reformska nastojanja|||76. Fuzija spoljne, bezbednosne i odbrambene politike EU", "min": 8},
-    {"type": "item", "label": "19. Otvoreni metod koordinacije — 77. Otvoreni metod koordinacije; „meko pravo“ EU|||78. Osmišljavanje otvorenog metoda koordinacije i njegov domašaj", "min": 3},
-    {"type": "item", "label": "20. Model upravljanja krizom — 79. Model upravljanja krizom; uzroci i tokovi kriza|||80. Antikrizne intervencije u oblasti ekonomske politike|||81. Antikrizne intervencije u oblasti monetarne politike|||82. Politički proces u okruženju antikriznih upravljačkih mehanizama|||83. Kriza u medijumu prava|||84. Institucionalne posledice kriznog upravljanja: Evropski savet, Evrogrupa, Savet ministara|||85. Institucionalne posledice kriznog upravljanja: Komisija, Evropska centralna banka, Evropski parlament, Sud pravde EU", "min": 8},
-    {"type": "item", "label": "21. Pitanje o evropskoj javnosti — 86. Politički život u EU; opšti pristup|||87. Javnost kao kategorija političkog društva|||88. Javno mnjenje u EU i njegovo praćenje|||89. Evropeizacija nacionalnih javnosti|||90. Građanstvo Evropske unije|||91. Pitanje o evropskom identitetu|||92. Ustavni patriotizam i hrišćanski identitet Evrope kao antipodi|||93. Evroskepticizam", "min": 7},
-    {"type": "item", "label": "22. Političke stranke u EU — 94. Dilema predstavničke demokratije u EU i mesto političkih stranaka|||95. Stranke u EU – nacionalne i evropske|||96. Stranačka regulativa na nivou EU|||97. Specifičnost izbora za Evropski parlament i uloga stranaka|||98. Izbori 2019. godine i mogući pravci reformi", "min": 5},
-    {"type": "item", "label": "23. Interesne grupe u EU — 99. Pluralistički pogled na demokratiju|||100. Interesne grupe u EU|||101. Zastupanje i lobiranje u EU", "min": 4},
-    {"type": "item", "label": "24. Demokratija u EU / demokratski deficit — 102. Načela moderne demokratije i pitanje demokratije u EU|||103. Strukturni manjak demokratije|||104. Da li EU pretpostavlja novi tip demokratije?|||105. Krizni ishod legitimnosti i demokratije", "min": 5}
-  ]},
-  { key: 'faza3', label: 'TREĆA FAZA · 5.9. 01:00 → 07:45 — finalno aktivno ponavljanje', phaseEnd: PHASE_ENDS.faza3, seq: [
-    {"type": "phase", "label": "01:00–02:00 · Finalno ponavljanje pitanja 1–25"},
-    {"type": "item", "label": "1. Koncept političkog sistema i njegova primena na EU — 1. Klasična teorija političkog sistema|||2. Primena koncepta političkog sistema na Evropsku zajednicu/uniju", "min": 7},
-    {"type": "item", "label": "2. Evolucija od međunarodne organizacije ka političkom sistemu — 3. Evolucija Evropskih zajednica – od osnivanja do krize „prazne stolice“|||4. Stabilizovanje poretka evropske integracije – od sredine šezdesetih do Ugovora iz Mastrihta (1993)|||5. Stabilizovanje poretka evropske integracije – Ugovori o Evropskoj uniji (od 1993. do 2009)", "min": 7},
-    {"type": "item", "label": "3. Politički sistem i država – na primeru EU — 6. Nedržavni tip političkog sistema|||7. Postdržavni tip političkog sistema", "min": 6},
-    {"type": "item", "label": "4. Ugovorna i ustavna strana političkog sistema EU — 8. Ugovorna strana političkog sistema EU|||9. Ustavna strana političkog sistema EU|||10. Ko je gospodar osnivačkih ugovora?", "min": 9},
-    {"type": "item", "label": "5. Kvazifederalna raspodela materijalnih nadležnosti — 11. Federalno iskustvo u vertikalnoj podeli nadležnosti – američki uzor|||12. Evolucija podele nadležnosti|||13. Današnje stanje nadležnosti EU – opšta pitanja|||14. Ugovorna sistematizacija nadležnosti EU", "min": 9},
-    {"type": "item", "label": "6. Teorije o evropskim integracijama — 15. Teorije o evropskim integracijama; rano shvatanje „evropskog federalizma“|||16. Neofunkcionalistički pristup evropskim integracijama|||17. Teorija o međuvladinim odnosima na primeru evropske integracije|||18. Teorije o upravljanju na više nivoa i novi institucionalizam", "min": 9},
-    {"type": "item", "label": "7. Politički sistem EU u vremenu krize — 19. Kriza integracionog procesa|||20. Strukturni problem ekonomske i monetarne unije|||21. Antikrizna prekompozicija političkog sistema EU", "min": 6},
-    {"type": "item", "label": "8. Podela vlasti i institucionalni balans — 22. Podela vlasti i institucionalni balans|||23. Klasični koncept granske podele vlasti|||24. Podela vlasti u institucionalnom sistemu EZ/EU|||25. Institucije EU – opšti pristup", "min": 7},
-    {"type": "phase", "label": "02:00–03:10 · Finalno ponavljanje institucija 26–51"},
-    {"type": "item", "label": "9. Evropski savet — 26. Evropski savet – nastanak i sastav|||27. Evropski savet – zadaci, način rada i odlučivanja", "min": 7},
-    {"type": "item", "label": "10. Savet ministara — 28. Savet ministara – opšte karakteristike i nadležnosti|||29. Struktura Saveta ministara|||30. Način rada i odlučivanja Saveta ministara", "min": 13},
-    {"type": "item", "label": "11. Komisija — 31. Komisija – položaj i uloga u sistemu odlučivanja|||32. Nadležnosti Komisije|||33. Kolegijum i predsednik Komisije|||34. Kabineti predsednika i komesara i službenički sastav Komisije|||35. Izbori/imenovanje članova Komisije|||36. Način rada i odlučivanja Komisije", "min": 17},
-    {"type": "item", "label": "12. Evropski parlament — 37. Evolucija Evropskog parlamenta|||38. Struktura i način delovanja Evropskog parlamenta|||39. Nadležnosti Evropskog parlamenta|||40. Izbori za Evropski parlament", "min": 11},
-    {"type": "item", "label": "13. Sud pravde Evropske unije — 41. Sud pravde EU – značaj i položaj|||42. Struktura Suda pravde EU i način rada|||43. Nadležnosti Suda pravde EU|||44. Aktivistička uloga Suda pravde EU", "min": 8},
-    {"type": "item", "label": "14. Monetarna unija / Evropska centralna banka — 45. Monetarna unija i Evropska centralna banka|||46. Struktura Evropske centralne banke i način odlučivanja|||47. Nadležnosti i prošireni zadaci Evropske centralne banke|||48. Autonomija i odgovornost Evropske centralne banke", "min": 10},
-    {"type": "item", "label": "15. Nepolitičke institucije — 49. Ekonomski i socijalni komitet|||50. Komitet regiona|||51. Revizorski sud i regulatorna tela", "min": 4},
-    {"type": "break", "min": 15, "label": "03:10–03:25 · PAUZA"},
-    {"type": "phase", "label": "03:25–04:30 · Finalno ponavljanje modela 52–78"},
-    {"type": "item", "label": "16. Različitost modela upravljanja u EU — 52. Modeli upravljanja u EU", "min": 5},
-    {"type": "item", "label": "17. Politički proces u okviru komunitarnog metoda — 53. Poreklo i početak komunitarnog modela|||54. Evolucija zakonodavne politike|||55. Od saodlučivanja do redovnog zakonskog postupka; pitanje efikasnosti|||56. Vrste pravnih propisa u EZ/EU|||57. Zakonska inicijativa|||58. Priroda izvršne vlasti; Moneov metod izvršne vlasti u EZ/EU|||59. Komisija: kontrola sprovođenja zakona u državama članicama|||60. Komisija: donošenje izvršnih akata i postupak „komitologije“|||61. Pravosudna politika EU|||62. Sud pravde kao politički akter|||63. Načela komunitarnog prava (prava EU) proizašla iz prakse Suda pravde|||64. Fenomen konstitucionalizacije|||65. Tri osnovna mehanizma konstitucionalizacije|||66. Načelo nadređenosti/prvenstva prava EU u političkom procesu integracije|||67. Alternativna sudska praksa nacionalnih sudova|||68. Dinamički karakter pitanja o nadređenosti/prvenstvu prava EU", "min": 38},
-    {"type": "item", "label": "18. Politički proces u okviru međuvladinog metoda — 69. Opšte karakteristike međuvladinog modela upravljanja|||70. Međuvladine konferencije|||71. Policijska i pravosudna saradnja; prostor slobode, bezbednosti i pravde|||72. Instrumenti delovanja u policijskoj i pravosudnoj saradnji|||73. Saradnja država članica u spoljnoj politici kao preteča zajedničke spoljne i bezbednosne politike|||74. Prva faza spoljne i bezbednosne politike – ciljevi i sredstva|||75. Druga faza spoljne i bezbednosne politike – reformska nastojanja|||76. Fuzija spoljne, bezbednosne i odbrambene politike EU", "min": 18},
+    {"type": "item", "label": "16. Različitost modela upravljanja u EU — 52. Modeli upravljanja u EU", "min": 8},
+    {"type": "break", "min": 20, "label": "19:05–19:25 · PAUZA / VEČERA"},
+    {"type": "phase", "label": "18:30–19:18 · Ponavljanje 1: komunitarni metod"},
+    {"type": "item", "label": "17. Politički proces u okviru komunitarnog metoda — 53. Poreklo i početak komunitarnog modela|||54. Evolucija zakonodavne politike|||55. Od saodlučivanja do redovnog zakonskog postupka; pitanje efikasnosti|||56. Vrste pravnih propisa u EZ/EU|||57. Zakonska inicijativa|||58. Priroda izvršne vlasti; Moneov metod izvršne vlasti u EZ/EU|||59. Komisija: kontrola sprovođenja zakona u državama članicama|||60. Komisija: donošenje izvršnih akata i postupak „komitologije“|||61. Pravosudna politika EU|||62. Sud pravde kao politički akter|||63. Načela komunitarnog prava (prava EU) proizašla iz prakse Suda pravde|||64. Fenomen konstitucionalizacije|||65. Tri osnovna mehanizma konstitucionalizacije|||66. Načelo nadređenosti/prvenstva prava EU u političkom procesu integracije|||67. Alternativna sudska praksa nacionalnih sudova|||68. Dinamički karakter pitanja o nadređenosti/prvenstvu prava EU", "min": 48},
+    {"type": "break", "min": 10, "label": "20:13–20:23 · PAUZA"},
+    {"type": "phase", "label": "19:28–21:30 · Ponavljanje 1: pitanja 69–105"},
+    {"type": "item", "label": "18. Politički proces u okviru međuvladinog metoda — 69. Opšte karakteristike međuvladinog modela upravljanja|||70. Međuvladine konferencije|||71. Policijska i pravosudna saradnja; prostor slobode, bezbednosti i pravde|||72. Instrumenti delovanja u policijskoj i pravosudnoj saradnji|||73. Saradnja država članica u spoljnoj politici kao preteča zajedničke spoljne i bezbednosne politike|||74. Prva faza spoljne i bezbednosne politike – ciljevi i sredstva|||75. Druga faza spoljne i bezbednosne politike – reformska nastojanja|||76. Fuzija spoljne, bezbednosne i odbrambene politike EU", "min": 13},
     {"type": "item", "label": "19. Otvoreni metod koordinacije — 77. Otvoreni metod koordinacije; „meko pravo“ EU|||78. Osmišljavanje otvorenog metoda koordinacije i njegov domašaj", "min": 4},
-    {"type": "break", "min": 10, "label": "04:30–04:40 · PAUZA"},
-    {"type": "phase", "label": "04:40–05:55 · Finalno ponavljanje pitanja 79–105"},
-    {"type": "item", "label": "20. Model upravljanja krizom — 79. Model upravljanja krizom; uzroci i tokovi kriza|||80. Antikrizne intervencije u oblasti ekonomske politike|||81. Antikrizne intervencije u oblasti monetarne politike|||82. Politički proces u okruženju antikriznih upravljačkih mehanizama|||83. Kriza u medijumu prava|||84. Institucionalne posledice kriznog upravljanja: Evropski savet, Evrogrupa, Savet ministara|||85. Institucionalne posledice kriznog upravljanja: Komisija, Evropska centralna banka, Evropski parlament, Sud pravde EU", "min": 25},
-    {"type": "item", "label": "21. Pitanje o evropskoj javnosti — 86. Politički život u EU; opšti pristup|||87. Javnost kao kategorija političkog društva|||88. Javno mnjenje u EU i njegovo praćenje|||89. Evropeizacija nacionalnih javnosti|||90. Građanstvo Evropske unije|||91. Pitanje o evropskom identitetu|||92. Ustavni patriotizam i hrišćanski identitet Evrope kao antipodi|||93. Evroskepticizam", "min": 18},
-    {"type": "item", "label": "22. Političke stranke u EU — 94. Dilema predstavničke demokratije u EU i mesto političkih stranaka|||95. Stranke u EU – nacionalne i evropske|||96. Stranačka regulativa na nivou EU|||97. Specifičnost izbora za Evropski parlament i uloga stranaka|||98. Izbori 2019. godine i mogući pravci reformi", "min": 11},
-    {"type": "item", "label": "23. Interesne grupe u EU — 99. Pluralistički pogled na demokratiju|||100. Interesne grupe u EU|||101. Zastupanje i lobiranje u EU", "min": 8},
-    {"type": "item", "label": "24. Demokratija u EU / demokratski deficit — 102. Načela moderne demokratije i pitanje demokratije u EU|||103. Strukturni manjak demokratije|||104. Da li EU pretpostavlja novi tip demokratije?|||105. Krizni ishod legitimnosti i demokratije", "min": 13},
-    {"type": "break", "min": 35, "label": "05:55–06:30 · 🚿 PAUZA / SPREMANJE ZA ISPIT — tuširanje, pranje kose i spremanje"},
-    {"type": "special", "min": 75, "label": "06:30–07:45 · 🔴 CRVENA ZONA", "redZoneMain": true}
+    {"type": "item", "label": "20. Model upravljanja krizom — 79. Model upravljanja krizom; uzroci i tokovi kriza|||80. Antikrizne intervencije u oblasti ekonomske politike|||81. Antikrizne intervencije u oblasti monetarne politike|||82. Politički proces u okruženju antikriznih upravljačkih mehanizama|||83. Kriza u medijumu prava|||84. Institucionalne posledice kriznog upravljanja: Evropski savet, Evrogrupa, Savet ministara|||85. Institucionalne posledice kriznog upravljanja: Komisija, Evropska centralna banka, Evropski parlament, Sud pravde EU", "min": 13},
+    {"type": "item", "label": "21. Pitanje o evropskoj javnosti — 86. Politički život u EU; opšti pristup|||87. Javnost kao kategorija političkog društva|||88. Javno mnjenje u EU i njegovo praćenje|||89. Evropeizacija nacionalnih javnosti|||90. Građanstvo Evropske unije|||91. Pitanje o evropskom identitetu|||92. Ustavni patriotizam i hrišćanski identitet Evrope kao antipodi|||93. Evroskepticizam", "min": 17},
+    {"type": "item", "label": "22. Političke stranke u EU — 94. Dilema predstavničke demokratije u EU i mesto političkih stranaka|||95. Stranke u EU – nacionalne i evropske|||96. Stranačka regulativa na nivou EU|||97. Specifičnost izbora za Evropski parlament i uloga stranaka|||98. Izbori 2019. godine i mogući pravci reformi", "min": 8},
+    {"type": "item", "label": "23. Interesne grupe u EU — 99. Pluralistički pogled na demokratiju|||100. Interesne grupe u EU|||101. Zastupanje i lobiranje u EU", "min": 4},
+    {"type": "item", "label": "24. Demokratija u EU / demokratski deficit — 102. Načela moderne demokratije i pitanje demokratije u EU|||103. Strukturni manjak demokratije|||104. Da li EU pretpostavlja novi tip demokratije?|||105. Krizni ishod legitimnosti i demokratije", "min": 8},
+    {"type": "break", "min": 240, "label": "21:30–01:30 · 😴 SPAVANJE 2 — 4h, ne skraćuj"},
+  ]},
+  { key: 'faza3', label: 'DAN 3 · Subota 5.9. 01:30 → 09:00 — Ponavljanje 2 (finalno) + crvena zona · GOTOVA do 07:45, ispit u 9h', phaseEnd: PHASE_ENDS.faza3, seq: [
+    {"type": "break", "min": 30, "label": "01:30–02:00 · Buđenje, kafa"},
+    {"type": "phase", "label": "02:00–02:51 · Finalno ponavljanje pitanja 1–25"},
+    {"type": "item", "label": "1. Koncept političkog sistema i njegova primena na EU — 1. Klasična teorija političkog sistema|||2. Primena koncepta političkog sistema na Evropsku zajednicu/uniju", "min": 6},
+    {"type": "item", "label": "2. Evolucija od međunarodne organizacije ka političkom sistemu — 3. Evolucija Evropskih zajednica – od osnivanja do krize „prazne stolice“|||4. Stabilizovanje poretka evropske integracije – od sredine šezdesetih do Ugovora iz Mastrihta (1993)|||5. Stabilizovanje poretka evropske integracije – Ugovori o Evropskoj uniji (od 1993. do 2009)", "min": 6},
+    {"type": "item", "label": "3. Politički sistem i država – na primeru EU — 6. Nedržavni tip političkog sistema|||7. Postdržavni tip političkog sistema", "min": 5},
+    {"type": "item", "label": "4. Ugovorna i ustavna strana političkog sistema EU — 8. Ugovorna strana političkog sistema EU|||9. Ustavna strana političkog sistema EU|||10. Ko je gospodar osnivačkih ugovora?", "min": 7},
+    {"type": "item", "label": "5. Kvazifederalna raspodela materijalnih nadležnosti — 11. Federalno iskustvo u vertikalnoj podeli nadležnosti – američki uzor|||12. Evolucija podele nadležnosti|||13. Današnje stanje nadležnosti EU – opšta pitanja|||14. Ugovorna sistematizacija nadležnosti EU", "min": 7},
+    {"type": "item", "label": "6. Teorije o evropskim integracijama — 15. Teorije o evropskim integracijama; rano shvatanje „evropskog federalizma“|||16. Neofunkcionalistički pristup evropskim integracijama|||17. Teorija o međuvladinim odnosima na primeru evropske integracije|||18. Teorije o upravljanju na više nivoa i novi institucionalizam", "min": 7},
+    {"type": "item", "label": "7. Politički sistem EU u vremenu krize — 19. Kriza integracionog procesa|||20. Strukturni problem ekonomske i monetarne unije|||21. Antikrizna prekompozicija političkog sistema EU", "min": 5},
+    {"type": "item", "label": "8. Podela vlasti i institucionalni balans — 22. Podela vlasti i institucionalni balans|||23. Klasični koncept granske podele vlasti|||24. Podela vlasti u institucionalnom sistemu EZ/EU|||25. Institucije EU – opšti pristup", "min": 8},
+    {"type": "break", "min": 10, "label": "02:51–03:01 · PAUZA"},
+    {"type": "phase", "label": "03:01–04:01 · Finalno ponavljanje pitanja 26–51"},
+    {"type": "item", "label": "9. Evropski savet — 26. Evropski savet – nastanak i sastav|||27. Evropski savet – zadaci, način rada i odlučivanja", "min": 6},
+    {"type": "item", "label": "10. Savet ministara — 28. Savet ministara – opšte karakteristike i nadležnosti|||29. Struktura Saveta ministara|||30. Način rada i odlučivanja Saveta ministara", "min": 11},
+    {"type": "item", "label": "11. Komisija — 31. Komisija – položaj i uloga u sistemu odlučivanja|||32. Nadležnosti Komisije|||33. Kolegijum i predsednik Komisije|||34. Kabineti predsednika i komesara i službenički sastav Komisije|||35. Izbori/imenovanje članova Komisije|||36. Način rada i odlučivanja Komisije", "min": 15},
+    {"type": "item", "label": "12. Evropski parlament — 37. Evolucija Evropskog parlamenta|||38. Struktura i način delovanja Evropskog parlamenta|||39. Nadležnosti Evropskog parlamenta|||40. Izbori za Evropski parlament", "min": 9},
+    {"type": "item", "label": "13. Sud pravde Evropske unije — 41. Sud pravde EU – značaj i položaj|||42. Struktura Suda pravde EU i način rada|||43. Nadležnosti Suda pravde EU|||44. Aktivistička uloga Suda pravde EU", "min": 7},
+    {"type": "item", "label": "14. Monetarna unija / Evropska centralna banka — 45. Monetarna unija i Evropska centralna banka|||46. Struktura Evropske centralne banke i način odlučivanja|||47. Nadležnosti i prošireni zadaci Evropske centralne banke|||48. Autonomija i odgovornost Evropske centralne banke", "min": 9},
+    {"type": "item", "label": "15. Nepolitičke institucije — 49. Ekonomski i socijalni komitet|||50. Komitet regiona|||51. Revizorski sud i regulatorna tela", "min": 3},
+    {"type": "break", "min": 9, "label": "04:01–04:10 · PAUZA"},
+    {"type": "phase", "label": "04:10–05:03 · Finalno ponavljanje pitanja 52–78"},
+    {"type": "item", "label": "16. Različitost modela upravljanja u EU — 52. Modeli upravljanja u EU", "min": 4},
+    {"type": "item", "label": "17. Politički proces u okviru komunitarnog metoda — 53. Poreklo i početak komunitarnog modela|||54. Evolucija zakonodavne politike|||55. Od saodlučivanja do redovnog zakonskog postupka; pitanje efikasnosti|||56. Vrste pravnih propisa u EZ/EU|||57. Zakonska inicijativa|||58. Priroda izvršne vlasti; Moneov metod izvršne vlasti u EZ/EU|||59. Komisija: kontrola sprovođenja zakona u državama članicama|||60. Komisija: donošenje izvršnih akata i postupak „komitologije“|||61. Pravosudna politika EU|||62. Sud pravde kao politički akter|||63. Načela komunitarnog prava (prava EU) proizašla iz prakse Suda pravde|||64. Fenomen konstitucionalizacije|||65. Tri osnovna mehanizma konstitucionalizacije|||66. Načelo nadređenosti/prvenstva prava EU u političkom procesu integracije|||67. Alternativna sudska praksa nacionalnih sudova|||68. Dinamički karakter pitanja o nadređenosti/prvenstvu prava EU", "min": 33},
+    {"type": "item", "label": "18. Politički proces u okviru međuvladinog metoda — 69. Opšte karakteristike međuvladinog modela upravljanja|||70. Međuvladine konferencije|||71. Policijska i pravosudna saradnja; prostor slobode, bezbednosti i pravde|||72. Instrumenti delovanja u policijskoj i pravosudnoj saradnji|||73. Saradnja država članica u spoljnoj politici kao preteča zajedničke spoljne i bezbednosne politike|||74. Prva faza spoljne i bezbednosne politike – ciljevi i sredstva|||75. Druga faza spoljne i bezbednosne politike – reformska nastojanja|||76. Fuzija spoljne, bezbednosne i odbrambene politike EU", "min": 13},
+    {"type": "item", "label": "19. Otvoreni metod koordinacije — 77. Otvoreni metod koordinacije; „meko pravo“ EU|||78. Osmišljavanje otvorenog metoda koordinacije i njegov domašaj", "min": 3},
+    {"type": "break", "min": 8, "label": "05:03–05:11 · PAUZA"},
+    {"type": "phase", "label": "05:11–06:30 · Finalno ponavljanje pitanja 79–105 (evropska javnost pojačano)"},
+    {"type": "item", "label": "20. Model upravljanja krizom — 79. Model upravljanja krizom; uzroci i tokovi kriza|||80. Antikrizne intervencije u oblasti ekonomske politike|||81. Antikrizne intervencije u oblasti monetarne politike|||82. Politički proces u okruženju antikriznih upravljačkih mehanizama|||83. Kriza u medijumu prava|||84. Institucionalne posledice kriznog upravljanja: Evropski savet, Evrogrupa, Savet ministara|||85. Institucionalne posledice kriznog upravljanja: Komisija, Evropska centralna banka, Evropski parlament, Sud pravde EU", "min": 22},
+    {"type": "item", "label": "21. Pitanje o evropskoj javnosti — 86. Politički život u EU; opšti pristup|||87. Javnost kao kategorija političkog društva|||88. Javno mnjenje u EU i njegovo praćenje|||89. Evropeizacija nacionalnih javnosti|||90. Građanstvo Evropske unije|||91. Pitanje o evropskom identitetu|||92. Ustavni patriotizam i hrišćanski identitet Evrope kao antipodi|||93. Evroskepticizam", "min": 30},
+    {"type": "item", "label": "22. Političke stranke u EU — 94. Dilema predstavničke demokratije u EU i mesto političkih stranaka|||95. Stranke u EU – nacionalne i evropske|||96. Stranačka regulativa na nivou EU|||97. Specifičnost izbora za Evropski parlament i uloga stranaka|||98. Izbori 2019. godine i mogući pravci reformi", "min": 9},
+    {"type": "item", "label": "23. Interesne grupe u EU — 99. Pluralistički pogled na demokratiju|||100. Interesne grupe u EU|||101. Zastupanje i lobiranje u EU", "min": 7},
+    {"type": "item", "label": "24. Demokratija u EU / demokratski deficit — 102. Načela moderne demokratije i pitanje demokratije u EU|||103. Strukturni manjak demokratije|||104. Da li EU pretpostavlja novi tip demokratije?|||105. Krizni ishod legitimnosti i demokratije", "min": 11},
+    {"type": "special", "min": 50, "label": "06:30–07:20 · 🔴 CRVENA ZONA — samo obeležena/nesigurna pitanja", "redZoneMain": true},
+    {"type": "break", "min": 25, "label": "07:20–07:45 · Doručak / poslednja provera torbe — GOTOVA ✅"},
+    {"type": "break", "min": 75, "label": "07:45–09:00 · Put do fakulteta"},
   ]}
 ];
 
@@ -659,7 +661,7 @@ function parseQNum(questionText){
 // by each question's share of its area's TREĆA FAZA (final repetition) minutes.
 // Uses the largest-remainder (Hamilton) method so the total is always exactly 75.
 function computeRedZoneAllocation(){
-  const RED_ZONE_TOTAL = 75;
+  const RED_ZONE_TOTAL = 50;
   const flagged = Object.keys(redZoneState).filter(k => redZoneState[k]).map(Number).sort((a,b) => a-b);
   if(flagged.length === 0) return { allocations: {}, order: [], total: RED_ZONE_TOTAL, count: 0 };
 
