@@ -312,7 +312,7 @@ const SUBJECTS = [
 
 // Minuti po oblasti — FAZA 1 (sporo, prvi prolazak) i FAZA CRVENA (brzo, drugi prolazak).
 // Raspodela je proporcionalna originalnom "sporom" tempu, skalirana da stane u 15:00→09:00 bez spavanja.
-const FAZA1_MIN   = [18,18,14,17,22,22,13,22,13,39,53,28,21,28,12,7,69,50,8,66,69,28,21,36];   // suma 694 (30 min uštinuto iz oblasti 12–24 za pauzu posle 11. oblasti)
+const FAZA1_MIN   = [18,18,14,17,22,22,13,22,13,39,50,28,21,28,12,8,70,50,8,66,70,28,21,36];   // suma 694 (30 min uštinuto proporcionalno iz oblasti 11–24, jer pauza sad stoji pre 11. oblasti)
 // FAZA CRVENA više nema fiksne minute po oblasti — ovo su samo RELATIVNE TEŽINE (isti princip
 // raspodele kao ranije, proporcionalan originalnom tempu). Stvarne minute po oblasti se
 // preračunavaju uživo (vidi refreshCrvenaMinutes) na osnovu vremena koje je STVARNO ostalo do 07:20,
@@ -326,9 +326,9 @@ function buildItems(minsArr){
 const DAYS = [
   { key: 'faza1', label: 'FAZA 1', phaseEnd: PHASE_ENDS.faza1, seq: [
     {"type": "phase", "label": "15:00–03:04 · Sve oblasti (1–24), prvi — spori — prolazak"},
-    ...buildItems(FAZA1_MIN).slice(0, 11),
-    {"type": "break", "min": 30, "label": "Pauza od pola sata (posle 11. oblasti)"},
-    ...buildItems(FAZA1_MIN).slice(11),
+    ...buildItems(FAZA1_MIN).slice(0, 10),
+    {"type": "break", "min": 30, "label": "Pauza od pola sata (pre 11. oblasti — Komisija)"},
+    ...buildItems(FAZA1_MIN).slice(10),
     {"type": "break", "min": 40, "label": "03:04–03:44 · VELIKA PAUZA (jedina pauza u celom planu)"},
   ]},
   { key: 'crvena', label: 'FAZA CRVENA', phaseEnd: PHASE_ENDS.crvena, seq: [
