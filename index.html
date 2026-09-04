@@ -213,11 +213,12 @@
   .pause.checked span{ background:rgba(232,193,92,0.08); color:var(--gold); border:1px solid var(--gold-dim);
     font-weight:600; text-decoration:line-through; }
   .pause-actual-row{ display:flex; align-items:center; justify-content:center; gap:7px; margin:2px 0 4px; font-size:11px; color:var(--muted); flex-wrap:wrap; }
-  .pause-actual-row input[type="number"]{
+  .pause-actual-row input[type="number"], .pause-actual-row input[type="time"]{
     background:var(--bg2); border:1px solid var(--border); color:var(--text); border-radius:6px;
     padding:3px 6px; font-size:11px; width:56px; font-family:inherit;
   }
-  .pause-actual-row input[type="number"]:focus{ outline:none; border-color:var(--accent); }
+  .pause-actual-row input[type="time"]{ width:88px; }
+  .pause-actual-row input[type="number"]:focus, .pause-actual-row input[type="time"]:focus{ outline:none; border-color:var(--accent); }
   .pause-note{
     text-align:center; font-size:10.5px; font-style:italic; color:var(--gold);
     margin:-2px 0 4px; opacity:0.9;
@@ -285,6 +286,7 @@ const PHASE_ENDS = {
   faza1: new Date(2026, 8, 5, 3, 4, 0),    // Subota 5.9.2026 03:04 - kraj FAZE 1 (pre velike pauze)
   crvena: new Date(2026, 8, 5, 7, 20, 0)   // Subota 5.9.2026 07:20 - kraj FAZE CRVENE (pre doručka/puta)
 };
+const GLOBAL_START = new Date(2026, 8, 4, 15, 0, 0); // Petak 4.9.2026 15:00 - početak celog plana
 
 // Naslovi 24 oblasti (identični za oba prolaska) — "Naslov — pitanje1|||pitanje2|||..."
 const SUBJECTS = [
@@ -458,6 +460,46 @@ function parseSubject(label){
 function parseQNum(questionText){
   const m = questionText.match(/^(\d+)\./);
   return m ? parseInt(m[1], 10) : null;
+}
+
+function flattenAllEntries(){
+  const arr = [];
+  DAYS.forEach(day => {
+    let ii = -1, bi = -1;
+    day.seq.forEach(x => {
+      if(x.type === 'item'){ ii++; arr.push({ dayKey: day.key, kind: 'item', idx: ii, x }); }
+      else if(x.type === 'break'){ bi++; arr.push({ dayKey: day.key, kind: 'break', idx: bi, x }); }
+    });
+  });
+  return arr;
+}
+
+function actualOrPlanned(dayKey, kind, idx, plannedMin){
+  const key = `${dayKey}-${kind === 'item' ? 'i' : 'b'}${idx}`;
+  return actualMin[key] !== undefined ? actualMin[key] : plannedMin;
+}
+
+// Vreme kad bi po (do sad unetom stvarnom, inače planiranom) tempu trebalo da stigneš do ove stavke.
+function computeArrivalTime(targetDayKey, targetKind, targetIdx){
+  const flat = flattenAllEntries();
+  let cum = 0;
+  for(const entry of flat){
+    if(entry.dayKey === targetDayKey && entry.kind === targetKind && entry.idx === targetIdx) break;
+    cum += actualOrPlanned(entry.dayKey, entry.kind, entry.idx, entry.x.min);
+  }
+  return new Date(GLOBAL_START.getTime() + cum * 60000);
+}
+
+function updatePauseReturnTime(key, timeStr, arrivalStart){
+  if(!timeStr){ delete actualMin[key]; saveAndRender(); return; }
+  const [hh, mm] = timeStr.split(':').map(Number);
+  let returnDate = new Date(arrivalStart.getFullYear(), arrivalStart.getMonth(), arrivalStart.getDate(), hh, mm, 0);
+  let diffMs = returnDate - arrivalStart;
+  const DAY_MS = 24 * 60 * 60 * 1000;
+  if(diffMs < -12 * 60 * 60 * 1000){ returnDate = new Date(returnDate.getTime() + DAY_MS); }
+  else if(diffMs > 12 * 60 * 60 * 1000){ returnDate = new Date(returnDate.getTime() - DAY_MS); }
+  actualMin[key] = Math.round((returnDate - arrivalStart) / 60000);
+  saveAndRender();
 }
 
 function refreshCrvenaMinutes(){
@@ -664,18 +706,23 @@ function renderDay(day){
         list.appendChild(noteEl);
       }
 
+      const arrivalStart = computeArrivalTime(day.key, 'break', bi);
+      const plannedReturn = new Date(arrivalStart.getTime() + x.min * 60000);
       const info = diffInfo(x.min, actualMin[key]);
       const cmt = info ? pauseComment(info.cls, key + ':' + actualMin[key]) : '';
+      const returnTimeVal = actualMin[key] !== undefined
+        ? formatHHMM(new Date(arrivalStart.getTime() + actualMin[key] * 60000))
+        : '';
       const pauseRow = document.createElement('div');
       pauseRow.className = 'pause-actual-row';
       pauseRow.innerHTML = `
-        <span>Planirano vremena ${x.min} · Potrošeno vremena:</span>
-        <input type="number" min="0" placeholder="min" value="${actualMin[key] !== undefined ? actualMin[key] : ''}">
+        <span>Trebalo bi da se vratiš do ${formatHHMM(plannedReturn)} · Vratila si se u:</span>
+        <input type="time" value="${returnTimeVal}">
         ${info ? `<span class="diff-badge ${info.cls}">${info.text}</span><span class="roast ${info.cls}">${cmt}</span>` : ''}
       `;
       const pinp = pauseRow.querySelector('input');
       pinp.onclick = (e) => e.stopPropagation();
-      pinp.onchange = (e) => { e.stopPropagation(); updateActual(key, e.target.value); };
+      pinp.onchange = (e) => { e.stopPropagation(); updatePauseReturnTime(key, e.target.value, arrivalStart); };
       list.appendChild(pauseRow);
     }
   });
