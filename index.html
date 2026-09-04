@@ -2,7 +2,7 @@
 <html lang="sr">
 <head>
 <meta charset="UTF-8">
-<title>PSEU — plan učenja · 3–5. septembar</title>
+<title>PSEU — plan učenja · 4–5. septembar</title>
 <style>
   :root{
     --bg:#080b14; --bg2:#0d1220; --card:#111830; --border:#233156;
@@ -21,7 +21,6 @@
     background-attachment:fixed;
     position:relative;
   }
-  /* diskretan pozadinski EU motiv */
   body::before{
     content:"";
     position:fixed; inset:0; pointer-events:none; z-index:0;
@@ -196,27 +195,12 @@
   .roast.early{ color:var(--gold); }
   .roast.ontime{ color:var(--accent-light); }
 
-  .special-row{ border-left:3px solid var(--gold); }
-  .special-row.checked{ border-left-color:#1a1608; }
-
   .rz-flag{
     cursor:pointer; flex-shrink:0; font-size:12px; line-height:1; padding:3px 6px;
     border-radius:6px; opacity:0.32; transition:opacity .12s, background .12s;
   }
   .rz-flag:hover{ opacity:0.7; background:rgba(224,122,111,0.12); }
   .rz-flag.rz-on{ opacity:1; background:rgba(224,122,111,0.16); }
-
-  .redzone-panel{
-    margin:6px 0 8px 12px; padding:10px 12px; border-radius:8px;
-    border:1px solid var(--gold-dim); background:rgba(232,193,92,0.04);
-  }
-  .redzone-header{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;
-    font-size:11.5px; margin-bottom:8px; }
-  .redzone-header b{ color:var(--gold); }
-  .redzone-progress{ color:var(--muted); font-size:11px; white-space:nowrap; }
-  .redzone-empty{ font-size:12px; color:var(--muted); font-style:italic; }
-  .redzone-list{ display:flex; flex-direction:column; gap:5px; }
-  .redzone-qrow{ font-size:12px; }
 
   .pause{
     display:flex; align-items:center; gap:10px; margin:2px 0 0; color:var(--muted); font-size:11.5px; cursor:pointer;
@@ -248,14 +232,6 @@
   .late{ color:var(--warn); font-weight:700; }
   .early{ color:var(--gold); font-weight:700; }
 
-  .interphase{
-    position:relative; z-index:1; margin:22px 0; padding:14px 16px;
-    border:1px solid var(--gold-dim); border-radius:10px;
-    background:rgba(232,193,92,0.06); color:var(--text); text-align:center;
-    font-size:12px; font-weight:700; letter-spacing:.03em;
-  }
-  .interphase .sleep-time{ color:var(--gold); font-size:13px; }
-
 </style>
 </head>
 <body>
@@ -264,7 +240,7 @@
 <div class="masthead-sub"></div>
 <div class="masthead-rule"></div>
 
-<h1>PSEU — plan učenja · 3–5. septembar (ispit 5.9. u 9:00)</h1>
+<h1>PSEU — plan učenja · 4–5. septembar (ispit 5.9. u 9:00)</h1>
 
 <div class="countdown">
   <div class="star-ring">
@@ -290,7 +266,7 @@
 <div class="overall">
   <div class="overall-top">
     <div>
-      <div class="sub2">Ukupan napredak · po pitanjima</div>
+      <div class="sub2">Ukupan napredak · po pitanjima (2 prolaska)</div>
       <div class="num" id="overallCount">0 / 0</div>
     </div>
     <button class="reset-btn" onclick="resetAll()">Resetuj sve</button>
@@ -302,243 +278,59 @@
 
 <script>
 const PHASE_ENDS = {
-  faza1: new Date(2026, 8, 4, 1, 54, 0),    // Petak 4.9.2026 01:54 - kraj FAZE 1
-  faza2: new Date(2026, 8, 4, 20, 30, 0),   // Petak 4.9.2026 20:30 - kraj FAZE 2
-  faza3: new Date(2026, 8, 5, 9, 0, 0)      // Subota 5.9.2026 09:00 - ispit
-};
-const QUESTION_AREA = { 1:1, 2:1, 3:2, 4:2, 5:2, 6:3, 7:3, 8:4, 9:4, 10:4, 11:5, 12:5, 13:5, 14:5, 15:6, 16:6, 17:6, 18:6, 19:7, 20:7, 21:7, 22:8, 23:8, 24:8, 25:8, 26:9, 27:9, 28:10, 29:10, 30:10, 31:11, 32:11, 33:11, 34:11, 35:11, 36:11, 37:12, 38:12, 39:12, 40:12, 41:13, 42:13, 43:13, 44:13, 45:14, 46:14, 47:14, 48:14, 49:15, 50:15, 51:15, 52:16, 53:17, 54:17, 55:17, 56:17, 57:17, 58:17, 59:17, 60:17, 61:17, 62:17, 63:17, 64:17, 65:17, 66:17, 67:17, 68:17, 69:18, 70:18, 71:18, 72:18, 73:18, 74:18, 75:18, 76:18, 77:19, 78:19, 79:20, 80:20, 81:20, 82:20, 83:20, 84:20, 85:20, 86:21, 87:21, 88:21, 89:21, 90:21, 91:21, 92:21, 93:21, 94:22, 95:22, 96:22, 97:22, 98:22, 99:23, 100:23, 101:23, 102:24, 103:24, 104:24, 105:24 };
-const AREA_FINAL_MIN = { 1:7, 2:7, 3:6, 4:9, 5:9, 6:9, 7:6, 8:7, 9:7, 10:13, 11:17, 12:11, 13:8, 14:10, 15:4, 16:5, 17:38, 18:18, 19:4, 20:25, 21:18, 22:11, 23:8, 24:13 };
-const AREA_QUESTION_COUNT = { 1:2, 2:3, 3:2, 4:3, 5:4, 6:4, 7:3, 8:4, 9:2, 10:3, 11:6, 12:4, 13:4, 14:4, 15:3, 16:1, 17:16, 18:8, 19:2, 20:7, 21:8, 22:5, 23:3, 24:4 };
-const QUESTION_TEXT = {
-  1: "1. Klasična teorija političkog sistema",
-  2: "2. Primena koncepta političkog sistema na Evropsku zajednicu/uniju",
-  3: "3. Evolucija Evropskih zajednica – od osnivanja do krize „prazne stolice“",
-  4: "4. Stabilizovanje poretka evropske integracije – od sredine šezdesetih do Ugovora iz Mastrihta (1993)",
-  5: "5. Stabilizovanje poretka evropske integracije – Ugovori o Evropskoj uniji (od 1993. do 2009)",
-  6: "6. Nedržavni tip političkog sistema",
-  7: "7. Postdržavni tip političkog sistema",
-  8: "8. Ugovorna strana političkog sistema EU",
-  9: "9. Ustavna strana političkog sistema EU",
-  10: "10. Ko je gospodar osnivačkih ugovora?",
-  11: "11. Federalno iskustvo u vertikalnoj podeli nadležnosti – američki uzor",
-  12: "12. Evolucija podele nadležnosti",
-  13: "13. Današnje stanje nadležnosti EU – opšta pitanja",
-  14: "14. Ugovorna sistematizacija nadležnosti EU",
-  15: "15. Teorije o evropskim integracijama; rano shvatanje „evropskog federalizma“",
-  16: "16. Neofunkcionalistički pristup evropskim integracijama",
-  17: "17. Teorija o međuvladinim odnosima na primeru evropske integracije",
-  18: "18. Teorije o upravljanju na više nivoa i novi institucionalizam",
-  19: "19. Kriza integracionog procesa",
-  20: "20. Strukturni problem ekonomske i monetarne unije",
-  21: "21. Antikrizna prekompozicija političkog sistema EU",
-  22: "22. Podela vlasti i institucionalni balans",
-  23: "23. Klasični koncept granske podele vlasti",
-  24: "24. Podela vlasti u institucionalnom sistemu EZ/EU",
-  25: "25. Institucije EU – opšti pristup",
-  26: "26. Evropski savet – nastanak i sastav",
-  27: "27. Evropski savet – zadaci, način rada i odlučivanja",
-  28: "28. Savet ministara – opšte karakteristike i nadležnosti",
-  29: "29. Struktura Saveta ministara",
-  30: "30. Način rada i odlučivanja Saveta ministara",
-  31: "31. Komisija – položaj i uloga u sistemu odlučivanja",
-  32: "32. Nadležnosti Komisije",
-  33: "33. Kolegijum i predsednik Komisije",
-  34: "34. Kabineti predsednika i komesara i službenički sastav Komisije",
-  35: "35. Izbori/imenovanje članova Komisije",
-  36: "36. Način rada i odlučivanja Komisije",
-  37: "37. Evolucija Evropskog parlamenta",
-  38: "38. Struktura i način delovanja Evropskog parlamenta",
-  39: "39. Nadležnosti Evropskog parlamenta",
-  40: "40. Izbori za Evropski parlament",
-  41: "41. Sud pravde EU – značaj i položaj",
-  42: "42. Struktura Suda pravde EU i način rada",
-  43: "43. Nadležnosti Suda pravde EU",
-  44: "44. Aktivistička uloga Suda pravde EU",
-  45: "45. Monetarna unija i Evropska centralna banka",
-  46: "46. Struktura Evropske centralne banke i način odlučivanja",
-  47: "47. Nadležnosti i prošireni zadaci Evropske centralne banke",
-  48: "48. Autonomija i odgovornost Evropske centralne banke",
-  49: "49. Ekonomski i socijalni komitet",
-  50: "50. Komitet regiona",
-  51: "51. Revizorski sud i regulatorna tela",
-  52: "52. Modeli upravljanja u EU",
-  53: "53. Poreklo i početak komunitarnog modela",
-  54: "54. Evolucija zakonodavne politike",
-  55: "55. Od saodlučivanja do redovnog zakonskog postupka; pitanje efikasnosti",
-  56: "56. Vrste pravnih propisa u EZ/EU",
-  57: "57. Zakonska inicijativa",
-  58: "58. Priroda izvršne vlasti; Moneov metod izvršne vlasti u EZ/EU",
-  59: "59. Komisija: kontrola sprovođenja zakona u državama članicama",
-  60: "60. Komisija: donošenje izvršnih akata i postupak „komitologije“",
-  61: "61. Pravosudna politika EU",
-  62: "62. Sud pravde kao politički akter",
-  63: "63. Načela komunitarnog prava (prava EU) proizašla iz prakse Suda pravde",
-  64: "64. Fenomen konstitucionalizacije",
-  65: "65. Tri osnovna mehanizma konstitucionalizacije",
-  66: "66. Načelo nadređenosti/prvenstva prava EU u političkom procesu integracije",
-  67: "67. Alternativna sudska praksa nacionalnih sudova",
-  68: "68. Dinamički karakter pitanja o nadređenosti/prvenstvu prava EU",
-  69: "69. Opšte karakteristike međuvladinog modela upravljanja",
-  70: "70. Međuvladine konferencije",
-  71: "71. Policijska i pravosudna saradnja; prostor slobode, bezbednosti i pravde",
-  72: "72. Instrumenti delovanja u policijskoj i pravosudnoj saradnji",
-  73: "73. Saradnja država članica u spoljnoj politici kao preteča zajedničke spoljne i bezbednosne politike",
-  74: "74. Prva faza spoljne i bezbednosne politike – ciljevi i sredstva",
-  75: "75. Druga faza spoljne i bezbednosne politike – reformska nastojanja",
-  76: "76. Fuzija spoljne, bezbednosne i odbrambene politike EU",
-  77: "77. Otvoreni metod koordinacije; „meko pravo“ EU",
-  78: "78. Osmišljavanje otvorenog metoda koordinacije i njegov domašaj",
-  79: "79. Model upravljanja krizom; uzroci i tokovi kriza",
-  80: "80. Antikrizne intervencije u oblasti ekonomske politike",
-  81: "81. Antikrizne intervencije u oblasti monetarne politike",
-  82: "82. Politički proces u okruženju antikriznih upravljačkih mehanizama",
-  83: "83. Kriza u medijumu prava",
-  84: "84. Institucionalne posledice kriznog upravljanja: Evropski savet, Evrogrupa, Savet ministara",
-  85: "85. Institucionalne posledice kriznog upravljanja: Komisija, Evropska centralna banka, Evropski parlament, Sud pravde EU",
-  86: "86. Politički život u EU; opšti pristup",
-  87: "87. Javnost kao kategorija političkog društva",
-  88: "88. Javno mnjenje u EU i njegovo praćenje",
-  89: "89. Evropeizacija nacionalnih javnosti",
-  90: "90. Građanstvo Evropske unije",
-  91: "91. Pitanje o evropskom identitetu",
-  92: "92. Ustavni patriotizam i hrišćanski identitet Evrope kao antipodi",
-  93: "93. Evroskepticizam",
-  94: "94. Dilema predstavničke demokratije u EU i mesto političkih stranaka",
-  95: "95. Stranke u EU – nacionalne i evropske",
-  96: "96. Stranačka regulativa na nivou EU",
-  97: "97. Specifičnost izbora za Evropski parlament i uloga stranaka",
-  98: "98. Izbori 2019. godine i mogući pravci reformi",
-  99: "99. Pluralistički pogled na demokratiju",
-  100: "100. Interesne grupe u EU",
-  101: "101. Zastupanje i lobiranje u EU",
-  102: "102. Načela moderne demokratije i pitanje demokratije u EU",
-  103: "103. Strukturni manjak demokratije",
-  104: "104. Da li EU pretpostavlja novi tip demokratije?",
-  105: "105. Krizni ishod legitimnosti i demokratije"
+  faza1: new Date(2026, 8, 5, 3, 4, 0),    // Subota 5.9.2026 03:04 - kraj FAZE 1 (pre velike pauze)
+  crvena: new Date(2026, 8, 5, 7, 20, 0)   // Subota 5.9.2026 07:20 - kraj FAZE CRVENE (pre doručka/puta)
 };
 
+// Naslovi 24 oblasti (identični za oba prolaska) — "Naslov — pitanje1|||pitanje2|||..."
+const SUBJECTS = [
+"1. Koncept političkog sistema i njegova primena na EU — 1. Klasična teorija političkog sistema|||2. Primena koncepta političkog sistema na Evropsku zajednicu/uniju",
+"2. Evolucija od međunarodne organizacije ka političkom sistemu — 3. Evolucija Evropskih zajednica – od osnivanja do krize „prazne stolice“|||4. Stabilizovanje poretka evropske integracije – od sredine šezdesetih do Ugovora iz Mastrihta (1993)|||5. Stabilizovanje poretka evropske integracije – Ugovori o Evropskoj uniji (od 1993. do 2009)",
+"3. Politički sistem i država – na primeru EU — 6. Nedržavni tip političkog sistema|||7. Postdržavni tip političkog sistema",
+"4. Ugovorna i ustavna strana političkog sistema EU — 8. Ugovorna strana političkog sistema EU|||9. Ustavna strana političkog sistema EU|||10. Ko je gospodar osnivačkih ugovora?",
+"5. Kvazifederalna raspodela materijalnih nadležnosti — 11. Federalno iskustvo u vertikalnoj podeli nadležnosti – američki uzor|||12. Evolucija podele nadležnosti|||13. Današnje stanje nadležnosti EU – opšta pitanja|||14. Ugovorna sistematizacija nadležnosti EU",
+"6. Teorije o evropskim integracijama — 15. Teorije o evropskim integracijama; rano shvatanje „evropskog federalizma“|||16. Neofunkcionalistički pristup evropskim integracijama|||17. Teorija o međuvladinim odnosima na primeru evropske integracije|||18. Teorije o upravljanju na više nivoa i novi institucionalizam",
+"7. Politički sistem EU u vremenu krize — 19. Kriza integracionog procesa|||20. Strukturni problem ekonomske i monetarne unije|||21. Antikrizna prekompozicija političkog sistema EU",
+"8. Podela vlasti i institucionalni balans — 22. Podela vlasti i institucionalni balans|||23. Klasični koncept granske podele vlasti|||24. Podela vlasti u institucionalnom sistemu EZ/EU|||25. Institucije EU – opšti pristup",
+"9. Evropski savet — 26. Evropski savet – nastanak i sastav|||27. Evropski savet – zadaci, način rada i odlučivanja",
+"10. Savet ministara — 28. Savet ministara – opšte karakteristike i nadležnosti|||29. Struktura Saveta ministara|||30. Način rada i odlučivanja Saveta ministara",
+"11. Komisija — 31. Komisija – položaj i uloga u sistemu odlučivanja|||32. Nadležnosti Komisije|||33. Kolegijum i predsednik Komisije|||34. Kabineti predsednika i komesara i službenički sastav Komisije|||35. Izbori/imenovanje članova Komisije|||36. Način rada i odlučivanja Komisije",
+"12. Evropski parlament — 37. Evolucija Evropskog parlamenta|||38. Struktura i način delovanja Evropskog parlamenta|||39. Nadležnosti Evropskog parlamenta|||40. Izbori za Evropski parlament",
+"13. Sud pravde Evropske unije — 41. Sud pravde EU – značaj i položaj|||42. Struktura Suda pravde EU i način rada|||43. Nadležnosti Suda pravde EU|||44. Aktivistička uloga Suda pravde EU",
+"14. Monetarna unija / Evropska centralna banka — 45. Monetarna unija i Evropska centralna banka|||46. Struktura Evropske centralne banke i način odlučivanja|||47. Nadležnosti i prošireni zadaci Evropske centralne banke|||48. Autonomija i odgovornost Evropske centralne banke",
+"15. Nepolitičke institucije — 49. Ekonomski i socijalni komitet|||50. Komitet regiona|||51. Revizorski sud i regulatorna tela",
+"16. Različitost modela upravljanja u EU — 52. Modeli upravljanja u EU",
+"17. Politički proces u okviru komunitarnog metoda — 53. Poreklo i početak komunitarnog modela|||54. Evolucija zakonodavne politike|||55. Od saodlučivanja do redovnog zakonskog postupka; pitanje efikasnosti|||56. Vrste pravnih propisa u EZ/EU|||57. Zakonska inicijativa|||58. Priroda izvršne vlasti; Moneov metod izvršne vlasti u EZ/EU|||59. Komisija: kontrola sprovođenja zakona u državama članicama|||60. Komisija: donošenje izvršnih akata i postupak „komitologije“|||61. Pravosudna politika EU|||62. Sud pravde kao politički akter|||63. Načela komunitarnog prava (prava EU) proizašla iz prakse Suda pravde|||64. Fenomen konstitucionalizacije|||65. Tri osnovna mehanizma konstitucionalizacije|||66. Načelo nadređenosti/prvenstva prava EU u političkom procesu integracije|||67. Alternativna sudska praksa nacionalnih sudova|||68. Dinamički karakter pitanja o nadređenosti/prvenstvu prava EU",
+"18. Politički proces u okviru međuvladinog metoda — 69. Opšte karakteristike međuvladinog modela upravljanja|||70. Međuvladine konferencije|||71. Policijska i pravosudna saradnja; prostor slobode, bezbednosti i pravde|||72. Instrumenti delovanja u policijskoj i pravosudnoj saradnji|||73. Saradnja država članica u spoljnoj politici kao preteča zajedničke spoljne i bezbednosne politike|||74. Prva faza spoljne i bezbednosne politike – ciljevi i sredstva|||75. Druga faza spoljne i bezbednosne politike – reformska nastojanja|||76. Fuzija spoljne, bezbednosne i odbrambene politike EU",
+"19. Otvoreni metod koordinacije — 77. Otvoreni metod koordinacije; „meko pravo“ EU|||78. Osmišljavanje otvorenog metoda koordinacije i njegov domašaj",
+"20. Model upravljanja krizom — 79. Model upravljanja krizom; uzroci i tokovi kriza|||80. Antikrizne intervencije u oblasti ekonomske politike|||81. Antikrizne intervencije u oblasti monetarne politike|||82. Politički proces u okruženju antikriznih upravljačkih mehanizama|||83. Kriza u medijumu prava|||84. Institucionalne posledice kriznog upravljanja: Evropski savet, Evrogrupa, Savet ministara|||85. Institucionalne posledice kriznog upravljanja: Komisija, Evropska centralna banka, Evropski parlament, Sud pravde EU",
+"21. Pitanje o evropskoj javnosti — 86. Politički život u EU; opšti pristup|||87. Javnost kao kategorija političkog društva|||88. Javno mnjenje u EU i njegovo praćenje|||89. Evropeizacija nacionalnih javnosti|||90. Građanstvo Evropske unije|||91. Pitanje o evropskom identitetu|||92. Ustavni patriotizam i hrišćanski identitet Evrope kao antipodi|||93. Evroskepticizam",
+"22. Političke stranke u EU — 94. Dilema predstavničke demokratije u EU i mesto političkih stranaka|||95. Stranke u EU – nacionalne i evropske|||96. Stranačka regulativa na nivou EU|||97. Specifičnost izbora za Evropski parlament i uloga stranaka|||98. Izbori 2019. godine i mogući pravci reformi",
+"23. Interesne grupe u EU — 99. Pluralistički pogled na demokratiju|||100. Interesne grupe u EU|||101. Zastupanje i lobiranje u EU",
+"24. Demokratija u EU / demokratski deficit — 102. Načela moderne demokratije i pitanje demokratije u EU|||103. Strukturni manjak demokratije|||104. Da li EU pretpostavlja novi tip demokratije?|||105. Krizni ishod legitimnosti i demokratije"
+];
+
+// Minuti po oblasti — FAZA 1 (sporo, prvi prolazak) i FAZA CRVENA (brzo, drugi prolazak).
+// Raspodela je proporcionalna originalnom "sporom" tempu, skalirana da stane u 15:00→09:00 bez spavanja.
+const FAZA1_MIN   = [18,18,14,17,22,22,13,22,13,39,53,30,22,30,13,8,74,53,9,70,74,30,22,38];   // suma 724
+const CRVENA_MIN  = [5,5,4,5,7,7,4,6,4,12,16,9,6,9,4,3,22,16,3,21,22,9,6,11];                  // suma 216
+
+function buildItems(minsArr){
+  return SUBJECTS.map((label, i) => ({ type: "item", label, min: minsArr[i] }));
+}
 
 const DAYS = [
   { key: 'faza1', label: 'FAZA 1', phaseEnd: PHASE_ENDS.faza1, seq: [
-    {"type": "phase", "label": "18:00–19:18 · Oblasti 1–4"},
-    {"type": "item", "label": "1. Koncept političkog sistema i njegova primena na EU — 1. Klasična teorija političkog sistema|||2. Primena koncepta političkog sistema na Evropsku zajednicu/uniju", "min": 21},
-    {"type": "item", "label": "2. Evolucija od međunarodne organizacije ka političkom sistemu — 3. Evolucija Evropskih zajednica – od osnivanja do krize „prazne stolice“|||4. Stabilizovanje poretka evropske integracije – od sredine šezdesetih do Ugovora iz Mastrihta (1993)|||5. Stabilizovanje poretka evropske integracije – Ugovori o Evropskoj uniji (od 1993. do 2009)", "min": 21},
-    {"type": "item", "label": "3. Politički sistem i država – na primeru EU — 6. Nedržavni tip političkog sistema|||7. Postdržavni tip političkog sistema", "min": 16},
-    {"type": "item", "label": "4. Ugovorna i ustavna strana političkog sistema EU — 8. Ugovorna strana političkog sistema EU|||9. Ustavna strana političkog sistema EU|||10. Ko je gospodar osnivačkih ugovora?", "min": 20},
-    {"type": "break", "min": 9, "label": "19:18–19:27 · PAUZA"},
-    {"type": "phase", "label": "19:27–20:32 · Oblasti 5–7"},
-    {"type": "item", "label": "5. Kvazifederalna raspodela materijalnih nadležnosti — 11. Federalno iskustvo u vertikalnoj podeli nadležnosti – američki uzor|||12. Evolucija podele nadležnosti|||13. Današnje stanje nadležnosti EU – opšta pitanja|||14. Ugovorna sistematizacija nadležnosti EU", "min": 25},
-    {"type": "item", "label": "6. Teorije o evropskim integracijama — 15. Teorije o evropskim integracijama; rano shvatanje „evropskog federalizma“|||16. Neofunkcionalistički pristup evropskim integracijama|||17. Teorija o međuvladinim odnosima na primeru evropske integracije|||18. Teorije o upravljanju na više nivoa i novi institucionalizam", "min": 25},
-    {"type": "item", "label": "7. Politički sistem EU u vremenu krize — 19. Kriza integracionog procesa|||20. Strukturni problem ekonomske i monetarne unije|||21. Antikrizna prekompozicija političkog sistema EU", "min": 15},
-    {"type": "break", "min": 14, "label": "20:32–20:46 · PAUZA"},
-    {"type": "phase", "label": "20:46–21:26 · Oblasti 8–9"},
-    {"type": "item", "label": "8. Podela vlasti i institucionalni balans — 22. Podela vlasti i institucionalni balans|||23. Klasični koncept granske podele vlasti|||24. Podela vlasti u institucionalnom sistemu EZ/EU|||25. Institucije EU – opšti pristup", "min": 25},
-    {"type": "item", "label": "9. Evropski savet — 26. Evropski savet – nastanak i sastav|||27. Evropski savet – zadaci, način rada i odlučivanja", "min": 15},
-    {"type": "break", "min": 18, "label": "21:26–21:44 · PAUZA / VEČERA"},
-    {"type": "phase", "label": "21:44–22:29 · Savet ministara"},
-    {"type": "item", "label": "10. Savet ministara — 28. Savet ministara – opšte karakteristike i nadležnosti|||29. Struktura Saveta ministara|||30. Način rada i odlučivanja Saveta ministara", "min": 45},
-    {"type": "break", "min": 9, "label": "22:29–22:38 · PAUZA"},
-    {"type": "phase", "label": "22:38–23:38 · Komisija"},
-    {"type": "item", "label": "11. Komisija — 31. Komisija – položaj i uloga u sistemu odlučivanja|||32. Nadležnosti Komisije|||33. Kolegijum i predsednik Komisije|||34. Kabineti predsednika i komesara i službenički sastav Komisije|||35. Izbori/imenovanje članova Komisije|||36. Način rada i odlučivanja Komisije", "min": 60},
-    {"type": "break", "min": 9, "label": "23:38–23:47 · PAUZA"},
-    {"type": "phase", "label": "23:47–00:46 · Evropski parlament + Sud pravde"},
-    {"type": "item", "label": "12. Evropski parlament — 37. Evolucija Evropskog parlamenta|||38. Struktura i način delovanja Evropskog parlamenta|||39. Nadležnosti Evropskog parlamenta|||40. Izbori za Evropski parlament", "min": 34},
-    {"type": "item", "label": "13. Sud pravde Evropske unije — 41. Sud pravde EU – značaj i položaj|||42. Struktura Suda pravde EU i način rada|||43. Nadležnosti Suda pravde EU|||44. Aktivistička uloga Suda pravde EU", "min": 25},
-    {"type": "break", "min": 9, "label": "00:46–00:55 · PAUZA"},
-    {"type": "phase", "label": "00:55–01:54 · ECB + nepolitičke institucije + modeli upravljanja"},
-    {"type": "item", "label": "14. Monetarna unija / Evropska centralna banka — 45. Monetarna unija i Evropska centralna banka|||46. Struktura Evropske centralne banke i način odlučivanja|||47. Nadležnosti i prošireni zadaci Evropske centralne banke|||48. Autonomija i odgovornost Evropske centralne banke", "min": 34},
-    {"type": "item", "label": "15. Nepolitičke institucije — 49. Ekonomski i socijalni komitet|||50. Komitet regiona|||51. Revizorski sud i regulatorna tela", "min": 15},
-    {"type": "item", "label": "16. Različitost modela upravljanja u EU — 52. Modeli upravljanja u EU", "min": 10},
+    {"type": "phase", "label": "15:00–03:04 · Sve oblasti (1–24), prvi — spori — prolazak"},
+    ...buildItems(FAZA1_MIN),
+    {"type": "break", "min": 40, "label": "03:04–03:44 · VELIKA PAUZA (jedina pauza u celom planu)"},
   ]},
-  { key: 'faza2', label: 'FAZA 2', phaseEnd: PHASE_ENDS.faza2, seq: [
-    {"type": "break", "min": 27, "label": "05:54–06:21 · Buđenje, doručak, priprema"},
-    {"type": "phase", "label": "06:21–07:45 · Komunitarni metod"},
-    {"type": "item", "label": "17. Politički proces u okviru komunitarnog metoda — 53. Poreklo i početak komunitarnog modela|||54. Evolucija zakonodavne politike|||55. Od saodlučivanja do redovnog zakonskog postupka; pitanje efikasnosti|||56. Vrste pravnih propisa u EZ/EU|||57. Zakonska inicijativa|||58. Priroda izvršne vlasti; Moneov metod izvršne vlasti u EZ/EU|||59. Komisija: kontrola sprovođenja zakona u državama članicama|||60. Komisija: donošenje izvršnih akata i postupak „komitologije“|||61. Pravosudna politika EU|||62. Sud pravde kao politički akter|||63. Načela komunitarnog prava (prava EU) proizašla iz prakse Suda pravde|||64. Fenomen konstitucionalizacije|||65. Tri osnovna mehanizma konstitucionalizacije|||66. Načelo nadređenosti/prvenstva prava EU u političkom procesu integracije|||67. Alternativna sudska praksa nacionalnih sudova|||68. Dinamički karakter pitanja o nadređenosti/prvenstvu prava EU", "min": 84},
-    {"type": "break", "min": 9, "label": "07:45–07:54 · PAUZA"},
-    {"type": "phase", "label": "07:54–09:05 · Međuvladin metod + otvoreni metod koordinacije"},
-    {"type": "item", "label": "18. Politički proces u okviru međuvladinog metoda — 69. Opšte karakteristike međuvladinog modela upravljanja|||70. Međuvladine konferencije|||71. Policijska i pravosudna saradnja; prostor slobode, bezbednosti i pravde|||72. Instrumenti delovanja u policijskoj i pravosudnoj saradnji|||73. Saradnja država članica u spoljnoj politici kao preteča zajedničke spoljne i bezbednosne politike|||74. Prva faza spoljne i bezbednosne politike – ciljevi i sredstva|||75. Druga faza spoljne i bezbednosne politike – reformska nastojanja|||76. Fuzija spoljne, bezbednosne i odbrambene politike EU", "min": 61},
-    {"type": "item", "label": "19. Otvoreni metod koordinacije — 77. Otvoreni metod koordinacije; „meko pravo“ EU|||78. Osmišljavanje otvorenog metoda koordinacije i njegov domašaj", "min": 10},
-    {"type": "break", "min": 9, "label": "09:05–09:14 · PAUZA"},
-    {"type": "phase", "label": "09:14–10:34 · Model upravljanja krizom"},
-    {"type": "item", "label": "20. Model upravljanja krizom — 79. Model upravljanja krizom; uzroci i tokovi kriza|||80. Antikrizne intervencije u oblasti ekonomske politike|||81. Antikrizne intervencije u oblasti monetarne politike|||82. Politički proces u okruženju antikriznih upravljačkih mehanizama|||83. Kriza u medijumu prava|||84. Institucionalne posledice kriznog upravljanja: Evropski savet, Evrogrupa, Savet ministara|||85. Institucionalne posledice kriznog upravljanja: Komisija, Evropska centralna banka, Evropski parlament, Sud pravde EU", "min": 80},
-    {"type": "break", "min": 23, "label": "10:34–10:57 · PAUZA / RUČAK"},
-    {"type": "phase", "label": "10:57–12:21 · Evropska javnost, identitet, evroskepticizam"},
-    {"type": "item", "label": "21. Pitanje o evropskoj javnosti — 86. Politički život u EU; opšti pristup|||87. Javnost kao kategorija političkog društva|||88. Javno mnjenje u EU i njegovo praćenje|||89. Evropeizacija nacionalnih javnosti|||90. Građanstvo Evropske unije|||91. Pitanje o evropskom identitetu|||92. Ustavni patriotizam i hrišćanski identitet Evrope kao antipodi|||93. Evroskepticizam", "min": 84},
-    {"type": "break", "min": 9, "label": "12:21–12:30 · PAUZA"},
-    {"type": "phase", "label": "12:30–14:12 · Stranke + interesne grupe + demokratija"},
-    {"type": "item", "label": "22. Političke stranke u EU — 94. Dilema predstavničke demokratije u EU i mesto političkih stranaka|||95. Stranke u EU – nacionalne i evropske|||96. Stranačka regulativa na nivou EU|||97. Specifičnost izbora za Evropski parlament i uloga stranaka|||98. Izbori 2019. godine i mogući pravci reformi", "min": 34},
-    {"type": "item", "label": "23. Interesne grupe u EU — 99. Pluralistički pogled na demokratiju|||100. Interesne grupe u EU|||101. Zastupanje i lobiranje u EU", "min": 25},
-    {"type": "item", "label": "24. Demokratija u EU / demokratski deficit — 102. Načela moderne demokratije i pitanje demokratije u EU|||103. Strukturni manjak demokratije|||104. Da li EU pretpostavlja novi tip demokratije?|||105. Krizni ishod legitimnosti i demokratije", "min": 43},
-    {"type": "break", "min": 27, "label": "14:12–14:39 · PAUZA / VELIKI ODMOR — ✅ PRVO ČITANJE 1–105 ZAVRŠENO"},
-    {"type": "phase", "label": "14:39–15:56 · Ponavljanje 1: pitanja 1–21"},
-    {"type": "item", "label": "1. Koncept političkog sistema i njegova primena na EU — 1. Klasična teorija političkog sistema|||2. Primena koncepta političkog sistema na Evropsku zajednicu/uniju", "min": 9},
-    {"type": "item", "label": "2. Evolucija od međunarodne organizacije ka političkom sistemu — 3. Evolucija Evropskih zajednica – od osnivanja do krize „prazne stolice“|||4. Stabilizovanje poretka evropske integracije – od sredine šezdesetih do Ugovora iz Mastrihta (1993)|||5. Stabilizovanje poretka evropske integracije – Ugovori o Evropskoj uniji (od 1993. do 2009)", "min": 9},
-    {"type": "item", "label": "3. Politički sistem i država – na primeru EU — 6. Nedržavni tip političkog sistema|||7. Postdržavni tip političkog sistema", "min": 9},
-    {"type": "item", "label": "4. Ugovorna i ustavna strana političkog sistema EU — 8. Ugovorna strana političkog sistema EU|||9. Ustavna strana političkog sistema EU|||10. Ko je gospodar osnivačkih ugovora?", "min": 14},
-    {"type": "item", "label": "5. Kvazifederalna raspodela materijalnih nadležnosti — 11. Federalno iskustvo u vertikalnoj podeli nadležnosti – američki uzor|||12. Evolucija podele nadležnosti|||13. Današnje stanje nadležnosti EU – opšta pitanja|||14. Ugovorna sistematizacija nadležnosti EU", "min": 14},
-    {"type": "item", "label": "6. Teorije o evropskim integracijama — 15. Teorije o evropskim integracijama; rano shvatanje „evropskog federalizma“|||16. Neofunkcionalistički pristup evropskim integracijama|||17. Teorija o međuvladinim odnosima na primeru evropske integracije|||18. Teorije o upravljanju na više nivoa i novi institucionalizam", "min": 13},
-    {"type": "item", "label": "7. Politički sistem EU u vremenu krize — 19. Kriza integracionog procesa|||20. Strukturni problem ekonomske i monetarne unije|||21. Antikrizna prekompozicija političkog sistema EU", "min": 9},
-    {"type": "break", "min": 9, "label": "15:56–16:05 · PAUZA"},
-    {"type": "phase", "label": "16:05–18:16 · Ponavljanje 1: pitanja 22–52 (institucije)"},
-    {"type": "item", "label": "8. Podela vlasti i institucionalni balans — 22. Podela vlasti i institucionalni balans|||23. Klasični koncept granske podele vlasti|||24. Podela vlasti u institucionalnom sistemu EZ/EU|||25. Institucije EU – opšti pristup", "min": 13},
-    {"type": "item", "label": "9. Evropski savet — 26. Evropski savet – nastanak i sastav|||27. Evropski savet – zadaci, način rada i odlučivanja", "min": 9},
-    {"type": "item", "label": "10. Savet ministara — 28. Savet ministara – opšte karakteristike i nadležnosti|||29. Struktura Saveta ministara|||30. Način rada i odlučivanja Saveta ministara", "min": 16},
-    {"type": "item", "label": "11. Komisija — 31. Komisija – položaj i uloga u sistemu odlučivanja|||32. Nadležnosti Komisije|||33. Kolegijum i predsednik Komisije|||34. Kabineti predsednika i komesara i službenički sastav Komisije|||35. Izbori/imenovanje članova Komisije|||36. Način rada i odlučivanja Komisije", "min": 24},
-    {"type": "item", "label": "12. Evropski parlament — 37. Evolucija Evropskog parlamenta|||38. Struktura i način delovanja Evropskog parlamenta|||39. Nadležnosti Evropskog parlamenta|||40. Izbori za Evropski parlament", "min": 20},
-    {"type": "item", "label": "13. Sud pravde Evropske unije — 41. Sud pravde EU – značaj i položaj|||42. Struktura Suda pravde EU i način rada|||43. Nadležnosti Suda pravde EU|||44. Aktivistička uloga Suda pravde EU", "min": 13},
-    {"type": "item", "label": "14. Monetarna unija / Evropska centralna banka — 45. Monetarna unija i Evropska centralna banka|||46. Struktura Evropske centralne banke i način odlučivanja|||47. Nadležnosti i prošireni zadaci Evropske centralne banke|||48. Autonomija i odgovornost Evropske centralne banke", "min": 20},
-    {"type": "item", "label": "15. Nepolitičke institucije — 49. Ekonomski i socijalni komitet|||50. Komitet regiona|||51. Revizorski sud i regulatorna tela", "min": 8},
-    {"type": "item", "label": "16. Različitost modela upravljanja u EU — 52. Modeli upravljanja u EU", "min": 8},
-    {"type": "break", "min": 18, "label": "18:16–18:34 · PAUZA / VEČERA"},
-    {"type": "phase", "label": "18:34–19:16 · Ponavljanje 1: komunitarni metod"},
-    {"type": "item", "label": "17. Politički proces u okviru komunitarnog metoda — 53. Poreklo i početak komunitarnog modela|||54. Evolucija zakonodavne politike|||55. Od saodlučivanja do redovnog zakonskog postupka; pitanje efikasnosti|||56. Vrste pravnih propisa u EZ/EU|||57. Zakonska inicijativa|||58. Priroda izvršne vlasti; Moneov metod izvršne vlasti u EZ/EU|||59. Komisija: kontrola sprovođenja zakona u državama članicama|||60. Komisija: donošenje izvršnih akata i postupak „komitologije“|||61. Pravosudna politika EU|||62. Sud pravde kao politički akter|||63. Načela komunitarnog prava (prava EU) proizašla iz prakse Suda pravde|||64. Fenomen konstitucionalizacije|||65. Tri osnovna mehanizma konstitucionalizacije|||66. Načelo nadređenosti/prvenstva prava EU u političkom procesu integracije|||67. Alternativna sudska praksa nacionalnih sudova|||68. Dinamički karakter pitanja o nadređenosti/prvenstvu prava EU", "min": 42},
-    {"type": "break", "min": 9, "label": "19:16–19:25 · PAUZA"},
-    {"type": "phase", "label": "19:25–20:30 · Ponavljanje 1: pitanja 69–105"},
-    {"type": "item", "label": "18. Politički proces u okviru međuvladinog metoda — 69. Opšte karakteristike međuvladinog modela upravljanja|||70. Međuvladine konferencije|||71. Policijska i pravosudna saradnja; prostor slobode, bezbednosti i pravde|||72. Instrumenti delovanja u policijskoj i pravosudnoj saradnji|||73. Saradnja država članica u spoljnoj politici kao preteča zajedničke spoljne i bezbednosne politike|||74. Prva faza spoljne i bezbednosne politike – ciljevi i sredstva|||75. Druga faza spoljne i bezbednosne politike – reformska nastojanja|||76. Fuzija spoljne, bezbednosne i odbrambene politike EU", "min": 12},
-    {"type": "item", "label": "19. Otvoreni metod koordinacije — 77. Otvoreni metod koordinacije; „meko pravo“ EU|||78. Osmišljavanje otvorenog metoda koordinacije i njegov domašaj", "min": 5},
-    {"type": "item", "label": "20. Model upravljanja krizom — 79. Model upravljanja krizom; uzroci i tokovi kriza|||80. Antikrizne intervencije u oblasti ekonomske politike|||81. Antikrizne intervencije u oblasti monetarne politike|||82. Politički proces u okruženju antikriznih upravljačkih mehanizama|||83. Kriza u medijumu prava|||84. Institucionalne posledice kriznog upravljanja: Evropski savet, Evrogrupa, Savet ministara|||85. Institucionalne posledice kriznog upravljanja: Komisija, Evropska centralna banka, Evropski parlament, Sud pravde EU", "min": 12},
-    {"type": "item", "label": "21. Pitanje o evropskoj javnosti — 86. Politički život u EU; opšti pristup|||87. Javnost kao kategorija političkog društva|||88. Javno mnjenje u EU i njegovo praćenje|||89. Evropeizacija nacionalnih javnosti|||90. Građanstvo Evropske unije|||91. Pitanje o evropskom identitetu|||92. Ustavni patriotizam i hrišćanski identitet Evrope kao antipodi|||93. Evroskepticizam", "min": 15},
-    {"type": "item", "label": "22. Političke stranke u EU — 94. Dilema predstavničke demokratije u EU i mesto političkih stranaka|||95. Stranke u EU – nacionalne i evropske|||96. Stranačka regulativa na nivou EU|||97. Specifičnost izbora za Evropski parlament i uloga stranaka|||98. Izbori 2019. godine i mogući pravci reformi", "min": 8},
-    {"type": "item", "label": "23. Interesne grupe u EU — 99. Pluralistički pogled na demokratiju|||100. Interesne grupe u EU|||101. Zastupanje i lobiranje u EU", "min": 5},
-    {"type": "item", "label": "24. Demokratija u EU / demokratski deficit — 102. Načela moderne demokratije i pitanje demokratije u EU|||103. Strukturni manjak demokratije|||104. Da li EU pretpostavlja novi tip demokratije?|||105. Krizni ishod legitimnosti i demokratije", "min": 8},
+  { key: 'crvena', label: 'FAZA CRVENA', phaseEnd: PHASE_ENDS.crvena, seq: [
+    {"type": "phase", "label": "03:44–07:20 · Sve oblasti (1–24) ponovo, ubrzano — 🔴 flag je samo vizuelna oznaka teškog pitanja"},
+    ...buildItems(CRVENA_MIN),
+    {"type": "break", "min": 25, "label": "07:20–07:45 · Doručak / poslednja provera torbe"},
+    {"type": "break", "min": 75, "label": "07:45–09:00 · Put do fakulteta — GOTOVA ✅"},
   ]},
-  { key: 'faza3', label: 'FAZA 3', phaseEnd: PHASE_ENDS.faza3, seq: [
-    {"type": "break", "min": 30, "label": "01:30–02:00 · Buđenje, kafa"},
-    {"type": "phase", "label": "02:00–02:51 · Finalno ponavljanje pitanja 1–25"},
-    {"type": "item", "label": "1. Koncept političkog sistema i njegova primena na EU — 1. Klasična teorija političkog sistema|||2. Primena koncepta političkog sistema na Evropsku zajednicu/uniju", "min": 6},
-    {"type": "item", "label": "2. Evolucija od međunarodne organizacije ka političkom sistemu — 3. Evolucija Evropskih zajednica – od osnivanja do krize „prazne stolice“|||4. Stabilizovanje poretka evropske integracije – od sredine šezdesetih do Ugovora iz Mastrihta (1993)|||5. Stabilizovanje poretka evropske integracije – Ugovori o Evropskoj uniji (od 1993. do 2009)", "min": 6},
-    {"type": "item", "label": "3. Politički sistem i država – na primeru EU — 6. Nedržavni tip političkog sistema|||7. Postdržavni tip političkog sistema", "min": 5},
-    {"type": "item", "label": "4. Ugovorna i ustavna strana političkog sistema EU — 8. Ugovorna strana političkog sistema EU|||9. Ustavna strana političkog sistema EU|||10. Ko je gospodar osnivačkih ugovora?", "min": 7},
-    {"type": "item", "label": "5. Kvazifederalna raspodela materijalnih nadležnosti — 11. Federalno iskustvo u vertikalnoj podeli nadležnosti – američki uzor|||12. Evolucija podele nadležnosti|||13. Današnje stanje nadležnosti EU – opšta pitanja|||14. Ugovorna sistematizacija nadležnosti EU", "min": 7},
-    {"type": "item", "label": "6. Teorije o evropskim integracijama — 15. Teorije o evropskim integracijama; rano shvatanje „evropskog federalizma“|||16. Neofunkcionalistički pristup evropskim integracijama|||17. Teorija o međuvladinim odnosima na primeru evropske integracije|||18. Teorije o upravljanju na više nivoa i novi institucionalizam", "min": 7},
-    {"type": "item", "label": "7. Politički sistem EU u vremenu krize — 19. Kriza integracionog procesa|||20. Strukturni problem ekonomske i monetarne unije|||21. Antikrizna prekompozicija političkog sistema EU", "min": 5},
-    {"type": "item", "label": "8. Podela vlasti i institucionalni balans — 22. Podela vlasti i institucionalni balans|||23. Klasični koncept granske podele vlasti|||24. Podela vlasti u institucionalnom sistemu EZ/EU|||25. Institucije EU – opšti pristup", "min": 8},
-    {"type": "break", "min": 10, "label": "02:51–03:01 · PAUZA"},
-    {"type": "phase", "label": "03:01–04:01 · Finalno ponavljanje pitanja 26–51"},
-    {"type": "item", "label": "9. Evropski savet — 26. Evropski savet – nastanak i sastav|||27. Evropski savet – zadaci, način rada i odlučivanja", "min": 6},
-    {"type": "item", "label": "10. Savet ministara — 28. Savet ministara – opšte karakteristike i nadležnosti|||29. Struktura Saveta ministara|||30. Način rada i odlučivanja Saveta ministara", "min": 11},
-    {"type": "item", "label": "11. Komisija — 31. Komisija – položaj i uloga u sistemu odlučivanja|||32. Nadležnosti Komisije|||33. Kolegijum i predsednik Komisije|||34. Kabineti predsednika i komesara i službenički sastav Komisije|||35. Izbori/imenovanje članova Komisije|||36. Način rada i odlučivanja Komisije", "min": 15},
-    {"type": "item", "label": "12. Evropski parlament — 37. Evolucija Evropskog parlamenta|||38. Struktura i način delovanja Evropskog parlamenta|||39. Nadležnosti Evropskog parlamenta|||40. Izbori za Evropski parlament", "min": 9},
-    {"type": "item", "label": "13. Sud pravde Evropske unije — 41. Sud pravde EU – značaj i položaj|||42. Struktura Suda pravde EU i način rada|||43. Nadležnosti Suda pravde EU|||44. Aktivistička uloga Suda pravde EU", "min": 7},
-    {"type": "item", "label": "14. Monetarna unija / Evropska centralna banka — 45. Monetarna unija i Evropska centralna banka|||46. Struktura Evropske centralne banke i način odlučivanja|||47. Nadležnosti i prošireni zadaci Evropske centralne banke|||48. Autonomija i odgovornost Evropske centralne banke", "min": 9},
-    {"type": "item", "label": "15. Nepolitičke institucije — 49. Ekonomski i socijalni komitet|||50. Komitet regiona|||51. Revizorski sud i regulatorna tela", "min": 3},
-    {"type": "break", "min": 9, "label": "04:01–04:10 · PAUZA"},
-    {"type": "phase", "label": "04:10–05:03 · Finalno ponavljanje pitanja 52–78"},
-    {"type": "item", "label": "16. Različitost modela upravljanja u EU — 52. Modeli upravljanja u EU", "min": 4},
-    {"type": "item", "label": "17. Politički proces u okviru komunitarnog metoda — 53. Poreklo i početak komunitarnog modela|||54. Evolucija zakonodavne politike|||55. Od saodlučivanja do redovnog zakonskog postupka; pitanje efikasnosti|||56. Vrste pravnih propisa u EZ/EU|||57. Zakonska inicijativa|||58. Priroda izvršne vlasti; Moneov metod izvršne vlasti u EZ/EU|||59. Komisija: kontrola sprovođenja zakona u državama članicama|||60. Komisija: donošenje izvršnih akata i postupak „komitologije“|||61. Pravosudna politika EU|||62. Sud pravde kao politički akter|||63. Načela komunitarnog prava (prava EU) proizašla iz prakse Suda pravde|||64. Fenomen konstitucionalizacije|||65. Tri osnovna mehanizma konstitucionalizacije|||66. Načelo nadređenosti/prvenstva prava EU u političkom procesu integracije|||67. Alternativna sudska praksa nacionalnih sudova|||68. Dinamički karakter pitanja o nadređenosti/prvenstvu prava EU", "min": 33},
-    {"type": "item", "label": "18. Politički proces u okviru međuvladinog metoda — 69. Opšte karakteristike međuvladinog modela upravljanja|||70. Međuvladine konferencije|||71. Policijska i pravosudna saradnja; prostor slobode, bezbednosti i pravde|||72. Instrumenti delovanja u policijskoj i pravosudnoj saradnji|||73. Saradnja država članica u spoljnoj politici kao preteča zajedničke spoljne i bezbednosne politike|||74. Prva faza spoljne i bezbednosne politike – ciljevi i sredstva|||75. Druga faza spoljne i bezbednosne politike – reformska nastojanja|||76. Fuzija spoljne, bezbednosne i odbrambene politike EU", "min": 13},
-    {"type": "item", "label": "19. Otvoreni metod koordinacije — 77. Otvoreni metod koordinacije; „meko pravo“ EU|||78. Osmišljavanje otvorenog metoda koordinacije i njegov domašaj", "min": 3},
-    {"type": "break", "min": 8, "label": "05:03–05:11 · PAUZA"},
-    {"type": "phase", "label": "05:11–06:30 · Finalno ponavljanje pitanja 79–105 (evropska javnost pojačano)"},
-    {"type": "item", "label": "20. Model upravljanja krizom — 79. Model upravljanja krizom; uzroci i tokovi kriza|||80. Antikrizne intervencije u oblasti ekonomske politike|||81. Antikrizne intervencije u oblasti monetarne politike|||82. Politički proces u okruženju antikriznih upravljačkih mehanizama|||83. Kriza u medijumu prava|||84. Institucionalne posledice kriznog upravljanja: Evropski savet, Evrogrupa, Savet ministara|||85. Institucionalne posledice kriznog upravljanja: Komisija, Evropska centralna banka, Evropski parlament, Sud pravde EU", "min": 22},
-    {"type": "item", "label": "21. Pitanje o evropskoj javnosti — 86. Politički život u EU; opšti pristup|||87. Javnost kao kategorija političkog društva|||88. Javno mnjenje u EU i njegovo praćenje|||89. Evropeizacija nacionalnih javnosti|||90. Građanstvo Evropske unije|||91. Pitanje o evropskom identitetu|||92. Ustavni patriotizam i hrišćanski identitet Evrope kao antipodi|||93. Evroskepticizam", "min": 30},
-    {"type": "item", "label": "22. Političke stranke u EU — 94. Dilema predstavničke demokratije u EU i mesto političkih stranaka|||95. Stranke u EU – nacionalne i evropske|||96. Stranačka regulativa na nivou EU|||97. Specifičnost izbora za Evropski parlament i uloga stranaka|||98. Izbori 2019. godine i mogući pravci reformi", "min": 9},
-    {"type": "item", "label": "23. Interesne grupe u EU — 99. Pluralistički pogled na demokratiju|||100. Interesne grupe u EU|||101. Zastupanje i lobiranje u EU", "min": 7},
-    {"type": "item", "label": "24. Demokratija u EU / demokratski deficit — 102. Načela moderne demokratije i pitanje demokratije u EU|||103. Strukturni manjak demokratije|||104. Da li EU pretpostavlja novi tip demokratije?|||105. Krizni ishod legitimnosti i demokratije", "min": 11},
-    {"type": "special", "min": 50, "label": "06:30–07:20 · 🔴 CRVENA ZONA — samo obeležena/nesigurna pitanja", "redZoneMain": true},
-    {"type": "break", "min": 25, "label": "07:20–07:45 · Doručak / poslednja provera torbe — GOTOVA ✅"},
-    {"type": "break", "min": 75, "label": "07:45–09:00 · Put do fakulteta"},
-  ]}
 ];
 
 const itemLateComments = ["Alo, ovo kasni više nego što bi trebalo.", "Alo, sat otkucava brže nego što ti okrećeš stranice.", "Alo, ovim tempom ćeš i na ispitu da čitaš isto pitanje.", "Alo, da nisi zaspala nad skriptom.", "Alo, tekst ti ne beži, ali rok da.", "Alo, ovo je čitanje ili meditacija.", "Alo, manje zurenja, više učenja.", "Alo, vreme prolazi brže od tebe, očigledno.", "Alo, ova rečenica te je pojela živu.", "Alo, nije ovo roman za plažu, ubrzaj.", "Alo, da te ne moram lično da požurujem.", "Alo, ovo pitanje te je savladalo, ne obrnuto.", "Alo, fokus ti je otišao na pauzu bez tebe.", "Alo, da nisi u glavi negde sasvim drugde.", "Alo, manje razmišljanja, više čitanja.", "Alo, vreme ti curi kao voda kroz prste.", "Alo, diž se, ovo nije vreme za sanjarenje.", "Alo, gde si tačno zapela, ha.", "Alo, da te ne moram podsećati zašto uopšte sediš tu.", "Alo, ovo kasni više nego tvoja motivacija jutros.", "Bre, ovo kasni više nego što bi trebalo.", "Bre, sat otkucava brže nego što ti okrećeš stranice.", "Bre, ovim tempom ćeš i na ispitu da čitaš isto pitanje.", "Bre, da nisi zaspala nad skriptom.", "Bre, tekst ti ne beži, ali rok da.", "Bre, ovo je čitanje ili meditacija.", "Bre, manje zurenja, više učenja.", "Bre, vreme prolazi brže od tebe, očigledno.", "Bre, ova rečenica te je pojela živu.", "Bre, nije ovo roman za plažu, ubrzaj.", "Bre, da te ne moram lično da požurujem.", "Bre, ovo pitanje te je savladalo, ne obrnuto.", "Bre, fokus ti je otišao na pauzu bez tebe.", "Bre, da nisi u glavi negde sasvim drugde.", "Bre, manje razmišljanja, više čitanja.", "Bre, vreme ti curi kao voda kroz prste.", "Bre, diž se, ovo nije vreme za sanjarenje.", "Bre, gde si tačno zapela, ha.", "Bre, da te ne moram podsećati zašto uopšte sediš tu.", "Bre, ovo kasni više nego tvoja motivacija jutros.", "Ajde, ovo kasni više nego što bi trebalo.", "Ajde, sat otkucava brže nego što ti okrećeš stranice.", "Ajde, ovim tempom ćeš i na ispitu da čitaš isto pitanje.", "Ajde, da nisi zaspala nad skriptom.", "Ajde, tekst ti ne beži, ali rok da.", "Ajde, ovo je čitanje ili meditacija.", "Ajde, manje zurenja, više učenja.", "Ajde, vreme prolazi brže od tebe, očigledno.", "Ajde, ova rečenica te je pojela živu.", "Ajde, nije ovo roman za plažu, ubrzaj.", "Ajde, da te ne moram lično da požurujem.", "Ajde, ovo pitanje te je savladalo, ne obrnuto.", "Ajde, fokus ti je otišao na pauzu bez tebe.", "Ajde, da nisi u glavi negde sasvim drugde.", "Ajde, manje razmišljanja, više čitanja.", "Ajde, vreme ti curi kao voda kroz prste.", "Ajde, diž se, ovo nije vreme za sanjarenje.", "Ajde, gde si tačno zapela, ha.", "Ajde, da te ne moram podsećati zašto uopšte sediš tu.", "Ajde, ovo kasni više nego tvoja motivacija jutros.", "Čekaj malo, ovo kasni više nego što bi trebalo.", "Čekaj malo, sat otkucava brže nego što ti okrećeš stranice.", "Čekaj malo, ovim tempom ćeš i na ispitu da čitaš isto pitanje.", "Čekaj malo, da nisi zaspala nad skriptom.", "Čekaj malo, tekst ti ne beži, ali rok da.", "Čekaj malo, ovo je čitanje ili meditacija.", "Čekaj malo, manje zurenja, više učenja.", "Čekaj malo, vreme prolazi brže od tebe, očigledno.", "Čekaj malo, ova rečenica te je pojela živu.", "Čekaj malo, nije ovo roman za plažu, ubrzaj.", "Čekaj malo, da te ne moram lično da požurujem.", "Čekaj malo, ovo pitanje te je savladalo, ne obrnuto.", "Čekaj malo, fokus ti je otišao na pauzu bez tebe.", "Čekaj malo, da nisi u glavi negde sasvim drugde.", "Čekaj malo, manje razmišljanja, više čitanja.", "Čekaj malo, vreme ti curi kao voda kroz prste.", "Čekaj malo, diž se, ovo nije vreme za sanjarenje.", "Čekaj malo, gde si tačno zapela, ha.", "Čekaj malo, da te ne moram podsećati zašto uopšte sediš tu.", "Čekaj malo, ovo kasni više nego tvoja motivacija jutros.", "Ozbiljno sad, ovo kasni više nego što bi trebalo.", "Ozbiljno sad, sat otkucava brže nego što ti okrećeš stranice.", "Ozbiljno sad, ovim tempom ćeš i na ispitu da čitaš isto pitanje.", "Ozbiljno sad, da nisi zaspala nad skriptom.", "Ozbiljno sad, tekst ti ne beži, ali rok da.", "Ozbiljno sad, ovo je čitanje ili meditacija.", "Ozbiljno sad, manje zurenja, više učenja.", "Ozbiljno sad, vreme prolazi brže od tebe, očigledno.", "Ozbiljno sad, ova rečenica te je pojela živu.", "Ozbiljno sad, nije ovo roman za plažu, ubrzaj.", "Ozbiljno sad, da te ne moram lično da požurujem.", "Ozbiljno sad, ovo pitanje te je savladalo, ne obrnuto.", "Ozbiljno sad, fokus ti je otišao na pauzu bez tebe.", "Ozbiljno sad, da nisi u glavi negde sasvim drugde.", "Ozbiljno sad, manje razmišljanja, više čitanja.", "Ozbiljno sad, vreme ti curi kao voda kroz prste.", "Ozbiljno sad, diž se, ovo nije vreme za sanjarenje.", "Ozbiljno sad, gde si tačno zapela, ha.", "Ozbiljno sad, da te ne moram podsećati zašto uopšte sediš tu.", "Ozbiljno sad, ovo kasni više nego tvoja motivacija jutros.", "Iskreno, ovo kasni više nego što bi trebalo.", "Iskreno, sat otkucava brže nego što ti okrećeš stranice.", "Iskreno, ovim tempom ćeš i na ispitu da čitaš isto pitanje.", "Iskreno, da nisi zaspala nad skriptom.", "Iskreno, tekst ti ne beži, ali rok da.", "Iskreno, ovo je čitanje ili meditacija.", "Iskreno, manje zurenja, više učenja.", "Iskreno, vreme prolazi brže od tebe, očigledno.", "Iskreno, ova rečenica te je pojela živu.", "Iskreno, nije ovo roman za plažu, ubrzaj.", "Iskreno, da te ne moram lično da požurujem.", "Iskreno, ovo pitanje te je savladalo, ne obrnuto.", "Iskreno, fokus ti je otišao na pauzu bez tebe.", "Iskreno, da nisi u glavi negde sasvim drugde.", "Iskreno, manje razmišljanja, više čitanja.", "Iskreno, vreme ti curi kao voda kroz prste.", "Iskreno, diž se, ovo nije vreme za sanjarenje.", "Iskreno, gde si tačno zapela, ha.", "Iskreno, da te ne moram podsećati zašto uopšte sediš tu.", "Iskreno, ovo kasni više nego tvoja motivacija jutros.", "Realno, ovo kasni više nego što bi trebalo.", "Realno, sat otkucava brže nego što ti okrećeš stranice.", "Realno, ovim tempom ćeš i na ispitu da čitaš isto pitanje.", "Realno, da nisi zaspala nad skriptom.", "Realno, tekst ti ne beži, ali rok da.", "Realno, ovo je čitanje ili meditacija.", "Realno, manje zurenja, više učenja.", "Realno, vreme prolazi brže od tebe, očigledno.", "Realno, ova rečenica te je pojela živu.", "Realno, nije ovo roman za plažu, ubrzaj.", "Realno, da te ne moram lično da požurujem.", "Realno, ovo pitanje te je savladalo, ne obrnuto.", "Realno, fokus ti je otišao na pauzu bez tebe.", "Realno, da nisi u glavi negde sasvim drugde.", "Realno, manje razmišljanja, više čitanja.", "Realno, vreme ti curi kao voda kroz prste.", "Realno, diž se, ovo nije vreme za sanjarenje.", "Realno, gde si tačno zapela, ha.", "Realno, da te ne moram podsećati zašto uopšte sediš tu.", "Realno, ovo kasni više nego tvoja motivacija jutros.", "Fakat, ovo kasni više nego što bi trebalo.", "Fakat, sat otkucava brže nego što ti okrećeš stranice.", "Fakat, ovim tempom ćeš i na ispitu da čitaš isto pitanje.", "Fakat, da nisi zaspala nad skriptom.", "Fakat, tekst ti ne beži, ali rok da.", "Fakat, ovo je čitanje ili meditacija.", "Fakat, manje zurenja, više učenja.", "Fakat, vreme prolazi brže od tebe, očigledno.", "Fakat, ova rečenica te je pojela živu.", "Fakat, nije ovo roman za plažu, ubrzaj.", "Fakat, da te ne moram lično da požurujem.", "Fakat, ovo pitanje te je savladalo, ne obrnuto.", "Fakat, fokus ti je otišao na pauzu bez tebe.", "Fakat, da nisi u glavi negde sasvim drugde.", "Fakat, manje razmišljanja, više čitanja.", "Fakat, vreme ti curi kao voda kroz prste.", "Fakat, diž se, ovo nije vreme za sanjarenje.", "Fakat, gde si tačno zapela, ha.", "Fakat, da te ne moram podsećati zašto uopšte sediš tu.", "Fakat, ovo kasni više nego tvoja motivacija jutros.", "Slušaj, ovo kasni više nego što bi trebalo.", "Slušaj, sat otkucava brže nego što ti okrećeš stranice.", "Slušaj, ovim tempom ćeš i na ispitu da čitaš isto pitanje.", "Slušaj, da nisi zaspala nad skriptom.", "Slušaj, tekst ti ne beži, ali rok da.", "Slušaj, ovo je čitanje ili meditacija.", "Slušaj, manje zurenja, više učenja.", "Slušaj, vreme prolazi brže od tebe, očigledno.", "Slušaj, ova rečenica te je pojela živu.", "Slušaj, nije ovo roman za plažu, ubrzaj.", "Slušaj, da te ne moram lično da požurujem.", "Slušaj, ovo pitanje te je savladalo, ne obrnuto.", "Slušaj, fokus ti je otišao na pauzu bez tebe.", "Slušaj, da nisi u glavi negde sasvim drugde.", "Slušaj, manje razmišljanja, više čitanja.", "Slušaj, vreme ti curi kao voda kroz prste.", "Slušaj, diž se, ovo nije vreme za sanjarenje.", "Slušaj, gde si tačno zapela, ha.", "Slušaj, da te ne moram podsećati zašto uopšte sediš tu.", "Slušaj, ovo kasni više nego tvoja motivacija jutros.", "Pazi, ovo kasni više nego što bi trebalo.", "Pazi, sat otkucava brže nego što ti okrećeš stranice.", "Pazi, ovim tempom ćeš i na ispitu da čitaš isto pitanje.", "Pazi, da nisi zaspala nad skriptom.", "Pazi, tekst ti ne beži, ali rok da.", "Pazi, ovo je čitanje ili meditacija.", "Pazi, manje zurenja, više učenja.", "Pazi, vreme prolazi brže od tebe, očigledno.", "Pazi, ova rečenica te je pojela živu.", "Pazi, nije ovo roman za plažu, ubrzaj.", "Pazi, da te ne moram lično da požurujem.", "Pazi, ovo pitanje te je savladalo, ne obrnuto.", "Pazi, fokus ti je otišao na pauzu bez tebe.", "Pazi, da nisi u glavi negde sasvim drugde.", "Pazi, manje razmišljanja, više čitanja.", "Pazi, vreme ti curi kao voda kroz prste.", "Pazi, diž se, ovo nije vreme za sanjarenje.", "Pazi, gde si tačno zapela, ha.", "Pazi, da te ne moram podsećati zašto uopšte sediš tu.", "Pazi, ovo kasni više nego tvoja motivacija jutros.", "Da ti kažem, ovo kasni više nego što bi trebalo.", "Da ti kažem, sat otkucava brže nego što ti okrećeš stranice.", "Da ti kažem, ovim tempom ćeš i na ispitu da čitaš isto pitanje.", "Da ti kažem, da nisi zaspala nad skriptom.", "Da ti kažem, tekst ti ne beži, ali rok da.", "Da ti kažem, ovo je čitanje ili meditacija.", "Da ti kažem, manje zurenja, više učenja.", "Da ti kažem, vreme prolazi brže od tebe, očigledno.", "Da ti kažem, ova rečenica te je pojela živu.", "Da ti kažem, nije ovo roman za plažu, ubrzaj.", "Da ti kažem, da te ne moram lično da požurujem.", "Da ti kažem, ovo pitanje te je savladalo, ne obrnuto.", "Da ti kažem, fokus ti je otišao na pauzu bez tebe.", "Da ti kažem, da nisi u glavi negde sasvim drugde.", "Da ti kažem, manje razmišljanja, više čitanja.", "Da ti kažem, vreme ti curi kao voda kroz prste.", "Da ti kažem, diž se, ovo nije vreme za sanjarenje.", "Da ti kažem, gde si tačno zapela, ha.", "Da ti kažem, da te ne moram podsećati zašto uopšte sediš tu.", "Da ti kažem, ovo kasni više nego tvoja motivacija jutros.", "Eto vidiš, ovo kasni više nego što bi trebalo.", "Eto vidiš, sat otkucava brže nego što ti okrećeš stranice.", "Eto vidiš, ovim tempom ćeš i na ispitu da čitaš isto pitanje.", "Eto vidiš, da nisi zaspala nad skriptom.", "Eto vidiš, tekst ti ne beži, ali rok da.", "Eto vidiš, ovo je čitanje ili meditacija.", "Eto vidiš, manje zurenja, više učenja.", "Eto vidiš, vreme prolazi brže od tebe, očigledno.", "Eto vidiš, ova rečenica te je pojela živu.", "Eto vidiš, nije ovo roman za plažu, ubrzaj.", "Eto vidiš, da te ne moram lično da požurujem.", "Eto vidiš, ovo pitanje te je savladalo, ne obrnuto.", "Eto vidiš, fokus ti je otišao na pauzu bez tebe.", "Eto vidiš, da nisi u glavi negde sasvim drugde.", "Eto vidiš, manje razmišljanja, više čitanja.", "Eto vidiš, vreme ti curi kao voda kroz prste.", "Eto vidiš, diž se, ovo nije vreme za sanjarenje.", "Eto vidiš, gde si tačno zapela, ha.", "Eto vidiš, da te ne moram podsećati zašto uopšte sediš tu.", "Eto vidiš, ovo kasni više nego tvoja motivacija jutros.", "Zamisli, ovo kasni više nego što bi trebalo.", "Zamisli, sat otkucava brže nego što ti okrećeš stranice.", "Zamisli, ovim tempom ćeš i na ispitu da čitaš isto pitanje.", "Zamisli, da nisi zaspala nad skriptom.", "Zamisli, tekst ti ne beži, ali rok da.", "Zamisli, ovo je čitanje ili meditacija.", "Zamisli, manje zurenja, više učenja.", "Zamisli, vreme prolazi brže od tebe, očigledno.", "Zamisli, ova rečenica te je pojela živu.", "Zamisli, nije ovo roman za plažu, ubrzaj.", "Zamisli, da te ne moram lično da požurujem.", "Zamisli, ovo pitanje te je savladalo, ne obrnuto.", "Zamisli, fokus ti je otišao na pauzu bez tebe.", "Zamisli, da nisi u glavi negde sasvim drugde.", "Zamisli, manje razmišljanja, više čitanja.", "Zamisli, vreme ti curi kao voda kroz prste.", "Zamisli, diž se, ovo nije vreme za sanjarenje.", "Zamisli, gde si tačno zapela, ha.", "Zamisli, da te ne moram podsećati zašto uopšte sediš tu.", "Zamisli, ovo kasni više nego tvoja motivacija jutros.", "Priznaj, ovo kasni više nego što bi trebalo.", "Priznaj, sat otkucava brže nego što ti okrećeš stranice.", "Priznaj, ovim tempom ćeš i na ispitu da čitaš isto pitanje.", "Priznaj, da nisi zaspala nad skriptom.", "Priznaj, tekst ti ne beži, ali rok da.", "Priznaj, ovo je čitanje ili meditacija.", "Priznaj, manje zurenja, više učenja.", "Priznaj, vreme prolazi brže od tebe, očigledno.", "Priznaj, ova rečenica te je pojela živu.", "Priznaj, nije ovo roman za plažu, ubrzaj.", "Priznaj, da te ne moram lično da požurujem.", "Priznaj, ovo pitanje te je savladalo, ne obrnuto.", "Priznaj, fokus ti je otišao na pauzu bez tebe.", "Priznaj, da nisi u glavi negde sasvim drugde.", "Priznaj, manje razmišljanja, više čitanja.", "Priznaj, vreme ti curi kao voda kroz prste.", "Priznaj, diž se, ovo nije vreme za sanjarenje.", "Priznaj, gde si tačno zapela, ha.", "Priznaj, da te ne moram podsećati zašto uopšte sediš tu.", "Priznaj, ovo kasni više nego tvoja motivacija jutros.", "Hajde de, ovo kasni više nego što bi trebalo.", "Hajde de, sat otkucava brže nego što ti okrećeš stranice.", "Hajde de, ovim tempom ćeš i na ispitu da čitaš isto pitanje.", "Hajde de, da nisi zaspala nad skriptom.", "Hajde de, tekst ti ne beži, ali rok da.", "Hajde de, ovo je čitanje ili meditacija.", "Hajde de, manje zurenja, više učenja.", "Hajde de, vreme prolazi brže od tebe, očigledno.", "Hajde de, ova rečenica te je pojela živu.", "Hajde de, nije ovo roman za plažu, ubrzaj.", "Hajde de, da te ne moram lično da požurujem.", "Hajde de, ovo pitanje te je savladalo, ne obrnuto.", "Hajde de, fokus ti je otišao na pauzu bez tebe.", "Hajde de, da nisi u glavi negde sasvim drugde.", "Hajde de, manje razmišljanja, više čitanja.", "Hajde de, vreme ti curi kao voda kroz prste.", "Hajde de, diž se, ovo nije vreme za sanjarenje.", "Hajde de, gde si tačno zapela, ha.", "Hajde de, da te ne moram podsećati zašto uopšte sediš tu.", "Hajde de, ovo kasni više nego tvoja motivacija jutros.", "Molim te, ovo kasni više nego što bi trebalo.", "Molim te, sat otkucava brže nego što ti okrećeš stranice.", "Molim te, ovim tempom ćeš i na ispitu da čitaš isto pitanje.", "Molim te, da nisi zaspala nad skriptom.", "Molim te, tekst ti ne beži, ali rok da.", "Molim te, ovo je čitanje ili meditacija.", "Molim te, manje zurenja, više učenja.", "Molim te, vreme prolazi brže od tebe, očigledno.", "Molim te, ova rečenica te je pojela živu.", "Molim te, nije ovo roman za plažu, ubrzaj.", "Molim te, da te ne moram lično da požurujem.", "Molim te, ovo pitanje te je savladalo, ne obrnuto.", "Molim te, fokus ti je otišao na pauzu bez tebe.", "Molim te, da nisi u glavi negde sasvim drugde.", "Molim te, manje razmišljanja, više čitanja.", "Molim te, vreme ti curi kao voda kroz prste.", "Molim te, diž se, ovo nije vreme za sanjarenje.", "Molim te, gde si tačno zapela, ha.", "Molim te, da te ne moram podsećati zašto uopšte sediš tu.", "Molim te, ovo kasni više nego tvoja motivacija jutros.", "Draga moja, ovo kasni više nego što bi trebalo.", "Draga moja, sat otkucava brže nego što ti okrećeš stranice.", "Draga moja, ovim tempom ćeš i na ispitu da čitaš isto pitanje.", "Draga moja, da nisi zaspala nad skriptom.", "Draga moja, tekst ti ne beži, ali rok da.", "Draga moja, ovo je čitanje ili meditacija.", "Draga moja, manje zurenja, više učenja.", "Draga moja, vreme prolazi brže od tebe, očigledno.", "Draga moja, ova rečenica te je pojela živu.", "Draga moja, nije ovo roman za plažu, ubrzaj.", "Draga moja, da te ne moram lično da požurujem.", "Draga moja, ovo pitanje te je savladalo, ne obrnuto.", "Draga moja, fokus ti je otišao na pauzu bez tebe.", "Draga moja, da nisi u glavi negde sasvim drugde.", "Draga moja, manje razmišljanja, više čitanja.", "Draga moja, vreme ti curi kao voda kroz prste.", "Draga moja, diž se, ovo nije vreme za sanjarenje.", "Draga moja, gde si tačno zapela, ha.", "Draga moja, da te ne moram podsećati zašto uopšte sediš tu.", "Draga moja, ovo kasni više nego tvoja motivacija jutros.", "Jao, ovo kasni više nego što bi trebalo.", "Jao, sat otkucava brže nego što ti okrećeš stranice.", "Jao, ovim tempom ćeš i na ispitu da čitaš isto pitanje.", "Jao, da nisi zaspala nad skriptom.", "Jao, tekst ti ne beži, ali rok da.", "Jao, ovo je čitanje ili meditacija.", "Jao, manje zurenja, više učenja.", "Jao, vreme prolazi brže od tebe, očigledno.", "Jao, ova rečenica te je pojela živu.", "Jao, nije ovo roman za plažu, ubrzaj.", "Jao, da te ne moram lično da požurujem.", "Jao, ovo pitanje te je savladalo, ne obrnuto.", "Jao, fokus ti je otišao na pauzu bez tebe.", "Jao, da nisi u glavi negde sasvim drugde.", "Jao, manje razmišljanja, više čitanja.", "Jao, vreme ti curi kao voda kroz prste.", "Jao, diž se, ovo nije vreme za sanjarenje.", "Jao, gde si tačno zapela, ha.", "Jao, da te ne moram podsećati zašto uopšte sediš tu.", "Jao, ovo kasni više nego tvoja motivacija jutros.", "E pa, ovo kasni više nego što bi trebalo.", "E pa, sat otkucava brže nego što ti okrećeš stranice.", "E pa, ovim tempom ćeš i na ispitu da čitaš isto pitanje.", "E pa, da nisi zaspala nad skriptom.", "E pa, tekst ti ne beži, ali rok da.", "E pa, ovo je čitanje ili meditacija.", "E pa, manje zurenja, više učenja.", "E pa, vreme prolazi brže od tebe, očigledno.", "E pa, ova rečenica te je pojela živu.", "E pa, nije ovo roman za plažu, ubrzaj.", "E pa, da te ne moram lično da požurujem.", "E pa, ovo pitanje te je savladalo, ne obrnuto.", "E pa, fokus ti je otišao na pauzu bez tebe.", "E pa, da nisi u glavi negde sasvim drugde.", "E pa, manje razmišljanja, više čitanja.", "E pa, vreme ti curi kao voda kroz prste.", "E pa, diž se, ovo nije vreme za sanjarenje.", "E pa, gde si tačno zapela, ha.", "E pa, da te ne moram podsećati zašto uopšte sediš tu.", "E pa, ovo kasni više nego tvoja motivacija jutros.", "Ma daj, ovo kasni više nego što bi trebalo.", "Ma daj, sat otkucava brže nego što ti okrećeš stranice.", "Ma daj, ovim tempom ćeš i na ispitu da čitaš isto pitanje.", "Ma daj, da nisi zaspala nad skriptom.", "Ma daj, tekst ti ne beži, ali rok da.", "Ma daj, ovo je čitanje ili meditacija.", "Ma daj, manje zurenja, više učenja.", "Ma daj, vreme prolazi brže od tebe, očigledno.", "Ma daj, ova rečenica te je pojela živu.", "Ma daj, nije ovo roman za plažu, ubrzaj.", "Ma daj, da te ne moram lično da požurujem.", "Ma daj, ovo pitanje te je savladalo, ne obrnuto.", "Ma daj, fokus ti je otišao na pauzu bez tebe.", "Ma daj, da nisi u glavi negde sasvim drugde.", "Ma daj, manje razmišljanja, više čitanja.", "Ma daj, vreme ti curi kao voda kroz prste.", "Ma daj, diž se, ovo nije vreme za sanjarenje.", "Ma daj, gde si tačno zapela, ha.", "Ma daj, da te ne moram podsećati zašto uopšte sediš tu.", "Ma daj, ovo kasni više nego tvoja motivacija jutros."];
@@ -552,8 +344,7 @@ const commentReplies = ["Aha, baš uverljivo, sledeći put probaj bez izgovora, 
 let state = {};
 let actualMin = {};
 let itemComments = {};
-let redZoneState = {};   // global by official question number: { [qNum]: true/false }
-let redZoneDone = {};    // global by official question number: { [qNum]: true/false }
+let redZoneState = {};   // global by official question number: { [qNum]: true/false } — samo vizuelno obeležavanje
 
 const STORAGE_KEY = 'pseuPlannerState';
 
@@ -563,8 +354,7 @@ function saveState(){
       state,
       actualMin,
       itemComments,
-      redZoneState,
-      redZoneDone
+      redZoneState
     }));
   } catch(e){
     console.error('Greška pri čuvanju stanja:', e);
@@ -580,7 +370,6 @@ function loadState(){
     actualMin = data.actualMin || {};
     itemComments = data.itemComments || {};
     redZoneState = data.redZoneState || {};
-    redZoneDone = data.redZoneDone || {};
   } catch(e){
     console.error('Greška pri učitavanju sačuvanog stanja:', e);
   }
@@ -646,8 +435,6 @@ function updateItemComment(key, value){
 
 // Parses "N. Naslov oblasti — pitanje1; pitanje2; pitanje3" into
 // { title: "N. Naslov oblasti", questions: ["pitanje1", "pitanje2", "pitanje3"] }.
-// If there is no " — " separator, the whole label is treated as a single
-// item with no sub-questions (rendered the old way).
 function parseSubject(label){
   const sep = ' — ';
   const idx = label.indexOf(sep);
@@ -663,55 +450,15 @@ function parseQNum(questionText){
   return m ? parseInt(m[1], 10) : null;
 }
 
-// Proportional allocation of the fixed 75-minute CRVENA ZONA block across
-// whichever official question numbers (1-105) are currently flagged, weighted
-// by each question's share of its area's TREĆA FAZA (final repetition) minutes.
-// Uses the largest-remainder (Hamilton) method so the total is always exactly 75.
-function computeRedZoneAllocation(){
-  const RED_ZONE_TOTAL = 50;
-  const flagged = Object.keys(redZoneState).filter(k => redZoneState[k]).map(Number).sort((a,b) => a-b);
-  if(flagged.length === 0) return { allocations: {}, order: [], total: RED_ZONE_TOTAL, count: 0 };
-
-  const weights = {};
-  let totalWeight = 0;
-  flagged.forEach(q => {
-    const area = QUESTION_AREA[q];
-    const w = AREA_FINAL_MIN[area] / AREA_QUESTION_COUNT[area];
-    weights[q] = w;
-    totalWeight += w;
-  });
-
-  const raw = {};
-  flagged.forEach(q => { raw[q] = RED_ZONE_TOTAL * weights[q] / totalWeight; });
-
-  const floors = {};
-  let flooredSum = 0;
-  const remainders = [];
-  flagged.forEach(q => {
-    const f = Math.floor(raw[q]);
-    floors[q] = f;
-    flooredSum += f;
-    remainders.push([q, raw[q] - f]);
-  });
-  let remaining = RED_ZONE_TOTAL - flooredSum;
-  remainders.sort((a, b) => b[1] - a[1]);
-  for(let i = 0; i < remaining; i++){
-    floors[remainders[i][0]] += 1;
-  }
-
-  return { allocations: floors, order: flagged, total: RED_ZONE_TOTAL, count: flagged.length };
-}
-
 function subjectTotals(seq){
   const study = seq.filter(x => x.type === 'item').reduce((a,b) => a + b.min, 0);
   const pause = seq.filter(x => x.type === 'break').reduce((a,b) => a + b.min, 0);
-  const special = seq.filter(x => x.type === 'special').reduce((a,b) => a + b.min, 0);
-  return { study, pause, special, total: study + pause + special };
+  return { study, pause, total: study + pause };
 }
 
 function computeDrift(seq, dayKey){
   let total = 0, count = 0;
-  let ii = -1, bi = -1, si = -1;
+  let ii = -1, bi = -1;
   seq.forEach(x => {
     if(x.type === 'item'){
       ii++;
@@ -720,10 +467,6 @@ function computeDrift(seq, dayKey){
     } else if(x.type === 'break'){
       bi++;
       const key = `${dayKey}-b${bi}`;
-      if(actualMin[key] !== undefined){ total += actualMin[key] - x.min; count++; }
-    } else if(x.type === 'special'){
-      si++;
-      const key = `${dayKey}-s${si}`;
       if(actualMin[key] !== undefined){ total += actualMin[key] - x.min; count++; }
     }
   });
@@ -777,44 +520,6 @@ function renderActualAndComment(container, key, planned){
   container.appendChild(commentRow);
 }
 
-function renderRedZonePanel(container){
-  const alloc = computeRedZoneAllocation();
-  const panel = document.createElement('div');
-  panel.className = 'redzone-panel';
-
-  if(alloc.count === 0){
-    panel.innerHTML = `<div class="redzone-empty">Nema označenih pitanja za Crvenu zonu. 75 min ostaje raspoloživa rezerva za blok 06:30–07:45.</div>`;
-    container.appendChild(panel);
-    return;
-  }
-
-  let doneCount = 0;
-  alloc.order.forEach(q => { if(redZoneDone[q]) doneCount++; });
-
-  const header = document.createElement('div');
-  header.className = 'redzone-header';
-  header.innerHTML = `
-    <span><b>Crvena zona (06:30–07:45) · ${alloc.count} pitanja · ukupno ${alloc.total} min</b></span>
-    <span class="redzone-progress">Završeno: ${doneCount} / ${alloc.count}</span>
-  `;
-  panel.appendChild(header);
-
-  const list = document.createElement('div');
-  list.className = 'redzone-list';
-  alloc.order.forEach(q => {
-    const text = QUESTION_TEXT[q];
-    const mins = alloc.allocations[q];
-    const row = document.createElement('div');
-    row.className = 'row redzone-qrow' + (redZoneDone[q] ? ' checked' : '');
-    row.innerHTML = `<span class="row-label">${text}</span><span class="row-time">${mins} min</span>`;
-    row.onclick = () => { redZoneDone[q] = !redZoneDone[q]; saveAndRender(); };
-    list.appendChild(row);
-  });
-  panel.appendChild(list);
-
-  container.appendChild(panel);
-}
-
 function renderDay(day){
   const seq = day.seq;
   const wrap = document.createElement('div');
@@ -828,8 +533,7 @@ function renderDay(day){
   const drift = computeDrift(seq, day.key);
   const meta = document.createElement('div');
   meta.className = 'daymeta';
-  const specialPart = tot.special > 0 ? ` + ${minutesLabel(tot.special)} crvena zona` : '';
-  meta.innerHTML = `Plan: ${minutesLabel(tot.total)} (${minutesLabel(tot.study)} učenje/čitanje + ${minutesLabel(tot.pause)} pauze${specialPart}) · ${driftHtml(drift.total, drift.count)}`;
+  meta.innerHTML = `Plan: ${minutesLabel(tot.total)} (${minutesLabel(tot.study)} učenje/čitanje + ${minutesLabel(tot.pause)} pauze) · ${driftHtml(drift.total, drift.count)}`;
   wrap.appendChild(meta);
 
   const proj = computePhaseProjection(day);
@@ -846,7 +550,7 @@ function renderDay(day){
 
   const list = document.createElement('div');
   list.className = 'list';
-  let ii = -1, bi = -1, si = -1;
+  let ii = -1, bi = -1;
   seq.forEach((x) => {
     if(x.type === 'phase'){
       const ph = document.createElement('div');
@@ -859,7 +563,6 @@ function renderDay(day){
       const parsed = parseSubject(x.label);
 
       if(parsed.questions.length > 0){
-        // Oblast (celina) sa zbirnim vremenom + pojedinačna pitanja za čekiranje
         const block = document.createElement('div');
         block.className = 'subject-block';
 
@@ -890,18 +593,13 @@ function renderDay(day){
           qrow.className = 'row qrow' + (state[qkey] ? ' checked' : '');
           const rzOn = qNum !== null && redZoneState[qNum];
           qrow.innerHTML = `<span class="row-label">${q}</span>` +
-            (qNum !== null ? `<span class="rz-flag${rzOn ? ' rz-on' : ''}" title="Označi za crvenu zonu">🔴</span>` : '');
+            (qNum !== null ? `<span class="rz-flag${rzOn ? ' rz-on' : ''}" title="Obeleži kao teško pitanje (samo vizuelno)">🔴</span>` : '');
           qrow.onclick = (e) => { e.stopPropagation(); state[qkey] = !state[qkey]; saveAndRender(); };
           if(qNum !== null){
             const flagEl = qrow.querySelector('.rz-flag');
             flagEl.onclick = (e) => {
               e.stopPropagation();
-              if(redZoneState[qNum]){
-                redZoneState[qNum] = false;
-                delete redZoneDone[qNum];
-              } else {
-                redZoneState[qNum] = true;
-              }
+              redZoneState[qNum] = !redZoneState[qNum];
               saveAndRender();
             };
           }
@@ -913,7 +611,6 @@ function renderDay(day){
 
         list.appendChild(block);
       } else {
-        // Stavka bez pitanja ispod (npr. "Samostalni pregled...") — prikaz kao ranije
         const row = document.createElement('div');
         row.className = 'row' + (state[key] ? ' checked' : '');
         row.innerHTML = `<span class="row-label">${x.label}</span><span class="row-time">${minutesLabel(x.min)}</span>`;
@@ -944,20 +641,6 @@ function renderDay(day){
       pinp.onclick = (e) => e.stopPropagation();
       pinp.onchange = (e) => { e.stopPropagation(); updateActual(key, e.target.value); };
       list.appendChild(pauseRow);
-    } else if(x.type === 'special'){
-      si++;
-      const key = `${day.key}-s${si}`;
-      const row = document.createElement('div');
-      row.className = 'row special-row' + (state[key] ? ' checked' : '');
-      row.innerHTML = `<span class="row-label">${x.label}</span><span class="row-time">${minutesLabel(x.min)}</span>`;
-      row.onclick = () => { state[key] = !state[key]; saveAndRender(); };
-      list.appendChild(row);
-
-      renderActualAndComment(list, key, x.min);
-
-      if(x.redZoneMain){
-        renderRedZonePanel(list);
-      }
     }
   });
   wrap.appendChild(list);
@@ -969,21 +652,8 @@ function render(){
   container.innerHTML = '';
 
   let totalChecked = 0, totalItems = 0;
-  DAYS.forEach((day, dayIndex) => {
+  DAYS.forEach((day) => {
     container.appendChild(renderDay(day));
-
-    // Spavanje/odmor je između faza, ne pripada nijednoj fazi.
-    if(day.key === 'faza1'){
-      const sleep = document.createElement('div');
-      sleep.className = 'interphase';
-      sleep.innerHTML = `<span class="sleep-time">01:54–05:54 · 😴 SPAVANJE — 4h</span>`;
-      container.appendChild(sleep);
-    } else if(day.key === 'faza2'){
-      const sleep = document.createElement('div');
-      sleep.className = 'interphase';
-      sleep.innerHTML = `<span class="sleep-time">20:30–01:30 · 😴 ODMOR / SPAVANJE DO FAZE 3 — 5h</span>`;
-      container.appendChild(sleep);
-    }
 
     let ii = -1;
     day.seq.forEach(x => {
@@ -1012,7 +682,6 @@ function resetAll(){
   actualMin = {};
   itemComments = {};
   redZoneState = {};
-  redZoneDone = {};
   try{
     localStorage.removeItem(STORAGE_KEY);
   } catch(e){
