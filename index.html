@@ -32,6 +32,12 @@ body{padding-top:150px}
 .q.checked .ted label{color:#2a2410}.q.checked .ted input{background:#fff6dc;color:#1a1608;color-scheme:light}
 .ted .edh{color:var(--muted);font-size:11px}
 .brk-row{display:flex;align-items:center;gap:12px;margin:12px auto}.brk-row:before,.brk-row:after{display:none}.brk-row .bm{flex:1;border:1px dashed var(--border);border-radius:12px;padding:8px 14px;color:var(--muted)}.brk-row .bm>span{font-weight:800;color:var(--gold-dim)}
+.cm{margin-top:9px;display:flex;gap:8px;align-items:center}
+.cmin{flex:1;min-width:0;font-size:14px;padding:7px 10px;border:1px solid var(--border);border-radius:8px;background:var(--bg2);color:var(--text)}
+.cmb{padding:7px 12px}
+.cmrep{margin-top:6px;font-size:15px;line-height:1.35;font-style:italic;color:var(--gold)}
+.q.checked .cmin{background:#fff6dc;color:#1a1608;border-color:#7a6a3a}.q.checked .cmrep{color:#3a2d00}
+.cmrep:empty{display:none}
 </style></head><body><div class="tbar" id="tbar"><div class="tb-row"><div class="tb-work" id="tbWork">0:00:00<small>radno vreme / 20:00:00</small></div><div class="tb-drift ok" id="tbDrift">—</div><button class="tb-pause" id="tbPause" onclick="togglePauseAll()">⏸ Pauza</button><div class="tb-now" id="tbNow"></div></div><div class="tb-msg" id="tbMsg"></div></div><div class="mast">ISPIT · 23. NOVEMBAR · 10:00</div><div class="rule"></div><div class="ring"><span class="star" style="--i:0">★</span><span class="star" style="--i:1">★</span><span class="star" style="--i:2">★</span><span class="star" style="--i:3">★</span><span class="star" style="--i:4">★</span><span class="star" style="--i:5">★</span><span class="star" style="--i:6">★</span><span class="star" style="--i:7">★</span><span class="star" style="--i:8">★</span><span class="star" style="--i:9">★</span><span class="star" style="--i:10">★</span><span class="star" style="--i:11">★</span><div class="center">POLITIČKI SISTEM<br>EVROPSKE UNIJE</div></div><div class="tabs"><button class="tab" id="t21" onclick="showDay(21)">PRVI PROLAZ</button><button class="tab" id="t22" onclick="showDay(22)">PONAVLJANJE</button></div><div id="app"></div><script>const AREAS=[["1. Koncept političkog sistema i njegova primena na EU", ["1. Klasična teorija političkog sistema", "2. Primena koncepta političkog sistema na Evropsku zajednicu/uniju"]], ["2. Evolucija od međunarodne organizacije ka političkom sistemu", ["3. Evolucija Evropskih zajednica – od osnivanja do krize „prazne stolice“", "4. Stabilizovanje poretka evropske integracije – od sredine šezdesetih do Ugovora iz Mastrihta (1993)", "5. Stabilizovanje poretka evropske integracije – Ugovori o Evropskoj uniji (od 1993. do 2009)"]], ["3. Politički sistem i država – na primeru EU", ["6. Nedržavni tip političkog sistema", "7. Postdržavni tip političkog sistema"]], ["4. Ugovorna i ustavna strana političkog sistema EU", ["8. Ugovorna strana političkog sistema EU", "9. Ustavna strana političkog sistema EU", "10. Ko je gospodar osnivačkih ugovora?"]], ["5. Kvazifederalna raspodela materijalnih nadležnosti", ["11. Federalno iskustvo u vertikalnoj podeli nadležnosti – američki uzor", "12. Evolucija podele nadležnosti", "13. Današnje stanje nadležnosti EU – opšta pitanja", "14. Ugovorna sistematizacija nadležnosti EU"]], ["6. Teorije o evropskim integracijama", ["15. Teorije o evropskim integracijama; rano shvatanje „evropskog federalizma“", "16. Neofunkcionalistički pristup evropskim integracijama", "17. Teorija o međuvladinim odnosima na primeru evropske integracije", "18. Teorije o upravljanju na više nivoa i novi institucionalizam"]], ["7. Politički sistem EU u vremenu krize", ["19. Kriza integracionog procesa", "20. Strukturni problem ekonomske i monetarne unije", "21. Antikrizna prekompozicija političkog sistema EU"]], ["8. Podela vlasti i institucionalni balans", ["22. Podela vlasti i institucionalni balans", "23. Klasični koncept granske podele vlasti", "24. Podela vlasti u institucionalnom sistemu EZ/EU", "25. Institucije EU – opšti pristup"]], ["9. Evropski savet", ["26. Evropski savet – nastanak i sastav", "27. Evropski savet – zadaci, način rada i odlučivanja"]], ["10. Savet ministara", ["28. Savet ministara – opšte karakteristike i nadležnosti", "29. Struktura Saveta ministara", "30. Način rada i odlučivanja Saveta ministara"]], ["11. Komisija", ["31. Komisija – položaj i uloga u sistemu odlučivanja", "32. Nadležnosti Komisije", "33. Kolegijum i predsednik Komisije", "34. Kabineti predsednika i komesara i službenički sastav Komisije", "35. Izbori/imenovanje članova Komisije", "36. Način rada i odlučivanja Komisije"]], ["12. Evropski parlament", ["37. Evolucija Evropskog parlamenta", "38. Struktura i način delovanja Evropskog parlamenta", "39. Nadležnosti Evropskog parlamenta", "40. Izbori za Evropski parlament"]], ["13. Sud pravde Evropske unije", ["41. Sud pravde EU – značaj i položaj", "42. Struktura Suda pravde EU i način rada", "43. Nadležnosti Suda pravde EU", "44. Aktivistička uloga Suda pravde EU"]], ["14. Monetarna unija / Evropska centralna banka", ["45. Monetarna unija i Evropska centralna banka", "46. Struktura Evropske centralne banke i način odlučivanja", "47. Nadležnosti i prošireni zadaci Evropske centralne banke", "48. Autonomija i odgovornost Evropske centralne banke"]], ["15. Nepolitičke institucije", ["49. Ekonomski i socijalni komitet", "50. Komitet regiona", "51. Revizorski sud i regulatorna tela"]], ["16. Različitost modela upravljanja u EU", ["52. Modeli upravljanja u EU"]], ["17. Politički proces u okviru komunitarnog metoda", ["53. Poreklo i početak komunitarnog modela", "54. Evolucija zakonodavne politike", "55. Od saodlučivanja do redovnog zakonskog postupka; pitanje efikasnosti", "56. Vrste pravnih propisa u EZ/EU", "57. Zakonska inicijativa", "58. Priroda izvršne vlasti; Moneov metod izvršne vlasti u EZ/EU", "59. Komisija: kontrola sprovođenja zakona u državama članicama", "60. Komisija: donošenje izvršnih akata i postupak „komitologije“", "61. Pravosudna politika EU", "62. Sud pravde kao politički akter", "63. Načela komunitarnog prava (prava EU) proizašla iz prakse Suda pravde", "64. Fenomen konstitucionalizacije", "65. Tri osnovna mehanizma konstitucionalizacije", "66. Načelo nadređenosti/prvenstva prava EU u političkom procesu integracije", "67. Alternativna sudska praksa nacionalnih sudova", "68. Dinamički karakter pitanja o nadređenosti/prvenstvu prava EU"]], ["18. Politički proces u okviru međuvladinog metoda", ["69. Opšte karakteristike međuvladinog modela upravljanja", "70. Međuvladine konferencije", "71. Policijska i pravosudna saradnja; prostor slobode, bezbednosti i pravde", "72. Instrumenti delovanja u policijskoj i pravosudnoj saradnji", "73. Saradnja država članica u spoljnoj politici kao preteča zajedničke spoljne i bezbednosne politike", "74. Prva faza spoljne i bezbednosne politike – ciljevi i sredstva", "75. Druga faza spoljne i bezbednosne politike – reformska nastojanja", "76. Fuzija spoljne, bezbednosne i odbrambene politike EU"]], ["19. Otvoreni metod koordinacije", ["77. Otvoreni metod koordinacije; „meko pravo“ EU", "78. Osmišljavanje otvorenog metoda koordinacije i njegov domašaj"]], ["20. Model upravljanja krizom", ["79. Model upravljanja krizom; uzroci i tokovi kriza", "80. Antikrizne intervencije u oblasti ekonomske politike", "81. Antikrizne intervencije u oblasti monetarne politike", "82. Politički proces u okruženju antikriznih upravljačkih mehanizama", "83. Kriza u medijumu prava", "84. Institucionalne posledice kriznog upravljanja: Evropski savet, Evrogrupa, Savet ministara", "85. Institucionalne posledice kriznog upravljanja: Komisija, Evropska centralna banka, Evropski parlament, Sud pravde EU"]], ["21. Pitanje o evropskoj javnosti", ["86. Politički život u EU; opšti pristup", "87. Javnost kao kategorija političkog društva", "88. Javno mnjenje u EU i njegovo praćenje", "89. Evropeizacija nacionalnih javnosti", "90. Građanstvo Evropske unije", "91. Pitanje o evropskom identitetu", "92. Ustavni patriotizam i hrišćanski identitet Evrope kao antipodi", "93. Evroskepticizam"]], ["22. Političke stranke u EU", ["94. Dilema predstavničke demokratije u EU i mesto političkih stranaka", "95. Stranke u EU – nacionalne i evropske", "96. Stranačka regulativa na nivou EU", "97. Specifičnost izbora za Evropski parlament i uloga stranaka", "98. Izbori 2019. godine i mogući pravci reformi"]], ["23. Interesne grupe u EU", ["99. Pluralistički pogled na demokratiju", "100. Interesne grupe u EU", "101. Zastupanje i lobiranje u EU"]], ["24. Demokratija u EU / demokratski deficit", ["102. Načela moderne demokratije i pitanje demokratije u EU", "103. Strukturni manjak demokratije", "104. Da li EU pretpostavlja novi tip demokratije?", "105. Krizni ishod legitimnosti i demokratije"]]];
 const KEY='pseu_ucenje_tajmer_v1';
 const MINS=[12, 8, 10, 10, 9, 10, 10, 8, 10, 12, 9, 12, 12, 9, 8, 10, 12, 10, 11, 9, 11, 9, 11, 10, 12, 10, 9, 9, 10, 11, 10, 13, 12, 9, 9, 8, 11, 10, 10, 9, 9, 9, 10, 8, 11, 10, 10, 9, 7, 7, 8, 10, 9, 7, 10, 10, 8, 9, 10, 9, 8, 12, 12, 11, 9, 10, 9, 8, 8, 13, 12, 12, 8, 9, 7, 13, 9, 12, 16, 16, 10, 13, 13, 11, 12, 7, 12, 12, 13, 13, 12, 13, 10, 10, 10, 13, 10, 13, 9, 12, 10, 10, 11, 10, 18];
@@ -41,7 +47,7 @@ const TOTALQ=105;
 let state={d22:{},red:{},red22:{},t:{},used:{},pl:[],cmt:null,day:21,b:{}};
 try{const o=JSON.parse(localStorage.getItem('pseu_ucenje_nov_v2')||'null');if(o){state.red=o.red||{};state.red22=o.red22||{}}}catch(e){}
 try{state={...state,...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch(e){}
-state.t=state.t||{};state.used=state.used||{};state.pl=state.pl||[];state.b=state.b||{};
+state.t=state.t||{};state.used=state.used||{};state.pl=state.pl||[];state.b=state.b||{};state.c=state.c||{};
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
 function qnum(q){let m=q.match(/^(\d+)\./);return m?m[1]:q}
 const PLAN={},AREA_OF={},BRK=[];
@@ -160,7 +166,87 @@ function breakHTML(i){
  const t=state.b[i]||{},run=t.s&&!t.e,fin=!!t.e;
  let btn=fin?`<button class="tbtn rs" style="background:transparent;color:var(--muted);border-color:var(--border)" onclick="resetB(${i})" title="Poništi">↺</button>`:run?`<button class="tbtn stop" onclick="endB(${i})">Završila pauzu</button>`:`<button class="tbtn go" onclick="startB(${i})">Počela pauzu</button>`;
  btn+=` <button class="tbtn rs" style="background:transparent;color:var(--muted);border-color:var(--border)" title="Upiši vreme ručno" onclick="openEdB(${i})">✎</button>`;
- return `<div class="pause brk-row"><div class="bm"><span>☕ PAUZA ${PAUSE} min</span><div class="tline">${btline(i)}</div>${editB===i+1?editorHTMLB(i):''}</div><div class="bb">${btn}</div></div>`;
+ return `<div class="pause brk-row"><div class="bm"><span>☕ PAUZA ${PAUSE} min</span><div class="tline">${btline(i)}</div>${editB===i+1?editorHTMLB(i):''}${cmHTML('b'+i)}</div><div class="bb">${btn}</div></div>`;
+}
+
+const _esc=x=>String(x||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function cmHTML(key){
+ const c=state.c[key]||{};
+ return `<div class="cm"><input class="cmin" id="cm_${key}" placeholder="Komentar (npr. bilo je teško)…" value="${_esc(c.t)}" oninput="saveDraft('${key}',this.value)" onkeydown="if(event.key==='Enter')sendCm('${key}')"><button class="tbtn cmb" onclick="sendCm('${key}')">Odgovori</button></div><div class="cmrep" id="cr_${key}">${_esc(c.r)}</div>`;
+}
+function saveDraft(key,v){state.c[key]=state.c[key]||{};state.c[key].t=v;save()}
+const CL={
+ hard:{y:["Pitanje je zaista među dužim, pa ti verujem. Prolazi bez kazne.","Teško je, a plan ti je dao više minuta, i to opravdava. Gledam kroz prste.","Priznajem, ovo nije lako gradivo. Ovog puta bez prigovora.","Težina je stvarna, a odstupanje razumno. Primljeno.","Ako je pitanje teško, a ti si ga ipak savladala u okvirima plana, to je rezultat, a ne izgovor."],
+        n:["Teško je svima, a plan to već uračunava. Odstupanje ostaje na tebi.","Težina nije izgovor kad pitanje nije među dužim. Još jedan minut zaostatka.","„Teško“ je ono što kažemo kad ne želimo da kažemo „odlagala sam“.","Pitanje je obično, a komentar veliki.","Gradivo nije teže od proseka, samo je tvoj tempo sporiji."]},
+ tired:{y:["Umor je legitiman razlog, a rezultat je u granicama. Prolazi.","Telo traži svoje, a ti si ipak izdržala. Gledam kroz prste.","Umor je stvaran, a ti si ostala u planu. Tačka.","Za to postoje pauze; ne dugujem ti objašnjenje.","Priznajem umor, rezultat ga ne dokazuje, ali ga ne pobija."],
+        n:["Umor nije alibi: sat ne zna za njega.","Umorna si i još kasniš. Umor je objašnjenje, a ne oprost.","Spavanje je zakazano za kasnije, ne za sada.","Umor je stvaran, kašnjenje je stvarno; samo jedno od toga je tvoja odluka.","Telo zna da se umori, a plan ne zna da čeka."]},
+ distract:{y:[],n:["Telefon nije otišao sa pitanja, ti si otišla sa pitanja.","Pažnja je resurs, a ti si je dala nekome ko ti ne piše ispit.","Skrolovanje je najskuplja vrsta odlaganja.","Distrakcija je izbor, a ne događaj.","Svet se nije promenio u tih nekoliko minuta; tvoj zaostatak jeste."]},
+ needs:{y:["Glad, žeđ i toalet su osnovne potrebe, bez prigovora.","Priznata potreba, nema kazne.","Telo se ne pregovara; vreme se može.","To je opravdano i ne treba ti odobrenje.","Gladna misliteljka ne misli dobro; sve je u redu."],
+        n:["Potreba je stvarna, ali trajanje nije bilo samo potrebe.","Kafa ne traje toliko dugo.","Bila je to potreba ili pauza koja se pretvorila u odlaganje?","Jesti treba, ali ne uz zaostatak.","Priznajem potrebu, osporavam dužinu."]},
+ easy:{y:["Lako ti je, a i rezultat to pokazuje. Pohvala.","Brzo i tačno: tako to treba.","Kad je lako, ovako i izgleda.","Ako ti je lako, ostaje više vremena. Dobro.","Znanje se vidi u tempu."],
+       n:["Lako ti je, a kasniš? Onda problem nije u gradivu.","„Lako“ i „zaostatak“ ne idu zajedno.","Ako je lako, kome duguješ ovo odstupanje?","Lako je ono što kažeš, a ne ono što pokazuje sat.","Lako, a sat se ne slaže."]},
+ other:{y:["Primljeno. Rezultat ti ide u prilog, pa ne tražim dalje.","Dobro, prihvatam.","Nema primedbi, brojke su na tvojoj strani.","Ne treba ti opravdanje, plan je ispunjen.","Zabeleženo, bez zamerke."],
+        n:["Zabeleženo, ali brojke govore drugačije od komentara.","Objašnjenje ne vraća izgubljeni minut.","Lepo objašnjeno, loše vreme.","Komentar je prihvaćen, odstupanje nije.","Reči nisu minuti."]}
+};
+function localReply(c,text){
+ const t=text.toLowerCase();
+ let cat='other';
+ if(/te[sšž]k|komplik|ne ide|nejasn|zbunjuj|zamr|mutno|zaglav|ne razum|vrtim|ne pamtim|zaboravlj|dug[oa]|puno/.test(t))cat='hard';
+ else if(/umor|pospan|spava|iscrp|oči|glava me/.test(t))cat='tired';
+ else if(/telefon|instagram|tiktok|skrol|poruk|društven|zvao|zvala|zvonio|gledala|pričala|razgovar/.test(t))cat='distract';
+ else if(/gladn|kafa|kafu|wc|toalet|jela|jesti|piti|voda|cigar|sendvič/.test(t))cat='needs';
+ else if(/lak[oa]|brzo|jednostav|znam|ide mi/.test(t))cat='easy';
+ const late=c.delta!=null?c.delta>1:c.drift>0.5;
+ let ok;
+ if(cat==='distract')ok=false;
+ else if(cat==='hard')ok=c.planMin>=c.avgMin*1.1||!late||(c.delta!=null&&c.delta<=3);
+ else if(cat==='tired')ok=c.kind==='b'||(c.delta!=null&&c.delta<=2)||c.drift<0;
+ else if(cat==='needs')ok=c.kind==='b'||!late;
+ else ok=!late;
+ const pool=CL[cat][ok?'y':'n'].length?CL[cat][ok?'y':'n']:CL[cat].n;
+ const used=state.cu=state.cu||[];
+ let cand=pool.filter(x=>!used.includes(x));if(!cand.length)cand=pool;
+ const line=cand[Math.floor(Math.random()*cand.length)];used.push(line);if(used.length>40)used.shift();
+ let extra='';
+ if(Math.random()<0.6){extra=' '+pick(ok?'p':'l',c.ai)}
+ return line+extra;
+}
+async function askClaude(c,text){
+ try{
+  if(!(window.claude&&claude.use))return null;
+  const sample=await claude.use('sample');if(!sample)return null;
+  const recent=Object.values(state.c).map(x=>x.r).filter(Boolean).slice(-6).join(' | ');
+  const stanje=c.delta!=null?`${c.fin?'završeno':'u toku'}, trajalo ${c.act.toFixed(1)} min od planiranih ${c.planMin} min (odstupanje ${c.delta>=0?'+':''}${c.delta.toFixed(1)} min)`:`nije počela, plan ${c.planMin} min`;
+  const prompt=`Ti si strog, duhovit i pošten profesor predmeta „${SUBJ}". Studentkinja uči celu noć pred ispit i ostavila je komentar uz ${c.kind==='q'?'pitanje':'pauzu'}.
+Pitanje/pauza: ${c.title}
+Oblast: ${c.area}
+Stanje: ${stanje}. Ukupno u odnosu na plan: ${c.drift>0.5?'kasni '+c.drift.toFixed(1)+' min':c.drift<-0.5?'ispred je '+(-c.drift).toFixed(1)+' min':'na vremenu je'}. Prosečno planirano po pitanju je ${c.avgMin.toFixed(1)} min (ovo pitanje ima ${c.planMin} min, što pokazuje koliko je dugo).
+Njen komentar: „${text}“
+Zadatak: proceni da li je komentar opravdan. Uzmi u obzir dužinu pitanja prema planu, odstupanje i da li je u pitanju pauza. Ako je opravdan, gledaj joj kroz prste kratko i pošteno, bez laskanja. Ako je izgovor, isprozivaj je britko i duhovito, u filozofskom stilu predmeta i vezano za temu pitanja, bez vulgarnosti i bez pominjanja izgleda ili porodice. Pravila: srpski jezik, ženski rod za nju, 1 do 3 rečenice, ne pitaj kako je, ne daj savete ni naredbe, ne ponavljaj ranije odgovore (${recent||'nema'}). Vrati samo odgovor, bez navodnika.`;
+  const r=await sample(prompt,{modelTier:'quick',cache:false});
+  return (r&&r.text||'').trim()||null;
+ }catch(e){return null}
+}
+async function sendCm(key){
+ const inp=document.getElementById('cm_'+key);if(!inp)return;
+ const text=inp.value.trim();if(!text)return;
+ state.c[key]=state.c[key]||{};state.c[key].t=text;
+ const out=document.getElementById('cr_'+key);if(out)out.textContent='…';
+ const c=cmCtx(key);
+ let r=await askClaude(c,text);
+ if(!r)r=localReply(c,text);
+ state.c[key].r=r;save();
+ const o2=document.getElementById('cr_'+key);if(o2)o2.textContent=r;
+}
+
+const SUBJ='Politički sistem Evropske unije';
+const QT={};AREAS.forEach(a=>a[1].forEach(q=>{QT[+qnum(q)]=q}));
+function cmCtx(key){
+ const kind=key[0],id=+key.slice(1),now=Date.now();
+ let title,area,planMin,ai,act=null,fin=false;
+ if(kind==='q'){title=QT[id];ai=AREA_OF[id];area=AREAS[ai][0];planMin=PLAN[id].m;const t=state.t[id];if(t&&t.s){fin=!!t.e;act=dur(id)/60000}}
+ else{ai=id;title='pauza posle oblasti '+AREAS[id][0];area=AREAS[id][0];planMin=PAUSE;const t=state.b[id];if(t&&t.s){fin=!!t.e;act=durB(id)/60000}}
+ return {kind,title,area,ai,planMin,act,fin,delta:act==null?null:act-planMin,drift:drift()/60000,avgMin:MINS.reduce((a,b)=>a+b,0)/MINS.length};
 }
 function toggleRed(n,e){e.stopPropagation();state.red[n]=!state.red[n];save();render()}
 function toggleRed22(n){state.red22[n]=!state.red22[n];save();render()}
@@ -176,7 +262,7 @@ function areaHTML(day,a,ai){
   if(day===21){
    const t=state.t[n]||{},run=t.s&&!t.e,fin=!!t.e;
    let btn=fin?`<button class="tbtn rs" title="Poništi vreme" onclick="event.stopPropagation();resetQ(${n})">↺</button>`:run?`<button class="tbtn stop" onclick="endQ(${n})">Završila</button>`:`<button class="tbtn go" onclick="startQ(${n})">Počela</button>`;
-   return `<div class="q ${fin?'checked':''} ${run?'running':''}"><div class="qm"><div class="ql">${q}</div><div class="tline">${tline(n)}</div>${editN==n?editorHTML(n):''}</div>${btn}<button class="tbtn rs" style="background:transparent;color:var(--muted);border-color:var(--border)" title="Upiši vreme ručno" onclick="event.stopPropagation();openEd(${n})">✎</button><span class="flag ${state.red[n]?'on':''}" title="Označi za Crvenu zonu ponavljanja" onclick="toggleRed('${n}',event)">🔴</span></div>`;
+   return `<div class="q ${fin?'checked':''} ${run?'running':''}"><div class="qm"><div class="ql">${q}</div><div class="tline">${tline(n)}</div>${editN==n?editorHTML(n):''}${cmHTML('q'+n)}</div>${btn}<button class="tbtn rs" style="background:transparent;color:var(--muted);border-color:var(--border)" title="Upiši vreme ručno" onclick="event.stopPropagation();openEd(${n})">✎</button><span class="flag ${state.red[n]?'on':''}" title="Označi za Crvenu zonu ponavljanja" onclick="toggleRed('${n}',event)">🔴</span></div>`;
   }
   return `<div class="q ${state.d22[n]?'checked':''}" onclick="toggleQ22('${n}')"><div class="ql">${q}</div></div>`;
  }).join('');
@@ -224,7 +310,7 @@ function tick(){
  if(key&&key!==lastKey){lastKey=key;say(key[0]==='b'?+qnum(AREAS[+key.slice(1).split(':')[0]][1].slice(-1)[0]):r)}
 }
 setInterval(tick,1000);
-function resetAll(){if(confirm('Resetovati sva vremena, crvene oznake i ponavljanje?')){localStorage.removeItem(KEY);state={d22:{},red:{},red22:{},t:{},used:{},pl:[],cmt:null,day:21,b:{}};render()}}
+function resetAll(){if(confirm('Resetovati sva vremena, crvene oznake i ponavljanje?')){localStorage.removeItem(KEY);state={d22:{},red:{},red22:{},t:{},used:{},pl:[],cmt:null,day:21,b:{},c:{}};render()}}
 render();
 
 </script></body></html>
